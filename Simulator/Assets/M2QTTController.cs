@@ -8,44 +8,42 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 
 public class M2QTTController : MonoBehaviour
 {
+    //Mqtt client handle
     private MqttClient client;
 
     // The connection information
-    public string brokerHostname = "mqtt.flespi.io";
-    public string clientId = "testVerbinding";
-    public int brokerPort = 8883;
-    public string userName = "test";
-    public string password = "test";
+    public string brokerHostname = "91.121.165.36";
+    public int brokerPort = 1883;
+    private string clientId = "Groep24Simulator"; //Unique ID
+    private byte qoSLevel = MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE;
     // listen on all the Topic
-    static string subTopic = "groep24test/#";
-
-    private string topic = "groep24test/test2";
-    private string testMessage = "Dit is een test bericht";
+    private string[] subTopics = { "24/#" };
 
     // Start is called before the first frame update
     void Start()
     {
-        if(brokerHostname != null && clientId != null && userName != null && password != null)
+        if(brokerHostname != null && clientId != null)
         {
             Debug.Log("connecting to " + brokerHostname + ":" + brokerPort);
             Connect();
-            client.MqttMsgPublishReceived += client_MqttMsgPublishedReceived;
-            byte[] qosLevels = { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE };
-            client.Subscribe(new string[] { subTopic }, qosLevels);
+            client.MqttMsgPublishReceived += client_MqttMsgPublishedReceived; //Message handler
+            client.Subscribe(subTopics, new byte[] { qoSLevel });
         }
     }
 
+    //Connects to MQTT broker
     private void Connect()
     {
         Debug.Log("about to connect on '" + brokerHostname + "'");
-
         client = new MqttClient(brokerHostname);
-
-        Debug.Log("About to connect using '" + userName + "' / '" + password + "'");
         try
         {
-            client.Connect(clientId, userName, password);
+            client.Connect(clientId);
             Debug.Log("Connected to client: " + clientId);
+
+            //Publish "established connection"
+            var testMessage = $"{clientId} established a connection!";
+            Publish("24", testMessage);
         }
         catch(Exception e)
         {
@@ -53,16 +51,18 @@ public class M2QTTController : MonoBehaviour
         }
     }
 
-    private void Publish(string _topic, string msg)
+    //Published to the broker on a specified topic
+    private void Publish(string topic, string msg)
     {
         client.Publish(
-            _topic, Encoding.UTF8.GetBytes(msg),
-            MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, false);
+            topic, Encoding.UTF8.GetBytes(msg),
+            qoSLevel, false);
     }
 
+    //Message received handle function
     private void client_MqttMsgPublishedReceived(object sender, MqttMsgPublishEventArgs e)
     {
-        string msg = Encoding.UTF8.GetString(e.Message);
+        string msg = Encoding.UTF8.GetString(e.Message); //Decode message
         Debug.Log("Received message from " + e.Topic + " : " + msg);
     }
 

@@ -240,12 +240,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4bfd6f1f3e130741949b3760d0bc70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerHostname: mqtt.flespi.io
-  clientId: testVerbinding
-  brokerPort: 8883
-  userName: bWpak9fMzTFvjlsMzF0p1Hvr5IWzqfopZEoaDrM18hmhqFROaH3Zcmg5V3v96HpV
-  password: 
-  certificate: {fileID: 0}
+  brokerHostname: 91.121.165.36
+  clientId: Groep24Simulator
+  brokerPort: 1883
 --- !u!4 &724572179
 Transform:
   m_ObjectHideFlags: 0
