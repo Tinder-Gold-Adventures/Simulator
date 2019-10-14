@@ -9,6 +9,7 @@ public class CarSpawner : MonoBehaviour
     public float SpawntimeInSec = 1f; //Time is takes for a car to spawn
     public Spawner[] Spawners; //List of spawners
     public RoutesList[] Routes; //List of possible routes
+    public GameObject CarParent;
 
     private float timePassed = 0f;
 
@@ -21,6 +22,7 @@ public class CarSpawner : MonoBehaviour
             int randomIndex = UnityEngine.Random.Range(0, Spawners.Length);
             Spawner randomSpawner = Spawners[randomIndex];
             CarController spawnedCar = Instantiate(CarPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<CarController>();
+            spawnedCar.transform.parent = CarParent.transform;
             spawnedCar.spawnLocation = randomSpawner.Location;
 
             //Reset timer

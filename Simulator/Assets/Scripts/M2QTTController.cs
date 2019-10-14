@@ -51,6 +51,15 @@ public class M2QTTController : MonoBehaviour
         }
     }
 
+    //Disconnects from MQTT broker
+    private void Disconnect()
+    {
+        if(client != null)
+        {
+            client.Disconnect();
+        }
+    }
+
     //Published to the broker on a specified topic
     private void Publish(string topic, string msg)
     {
@@ -70,5 +79,10 @@ public class M2QTTController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnApplicationQuit()
+    {
+        Disconnect();
     }
 }
