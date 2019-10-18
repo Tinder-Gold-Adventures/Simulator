@@ -12049,6 +12049,9 @@ MonoBehaviour:
   BrokerPort: 1883
   TargetTeamID: 24
   ListenToController: 0
+  subTopics:
+  - 24/motorised/+/+/traffic_light/#
+  - 24/motorised/+/traffic_light/#
 --- !u!4 &724572179
 Transform:
   m_ObjectHideFlags: 0

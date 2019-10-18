@@ -56,7 +56,7 @@ public class TrafficController : MonoBehaviour
     //Event listener to sensor trigger
     private void OnSensorTriggered(LaneTypes laneType, int groupId, int subgroupId, int componentId, bool isTriggered)
     {
-        TopicInformation info = new TopicInformation(laneType, groupId, subgroupId, ComponentTypes.Sensor, componentId);
+        TopicInformation info = new TopicInformation(laneType, groupId, subgroupId, ComponentTypes.sensor, componentId);
         PublishToController(info, (isTriggered ? 1 : 0).ToString());
     }
 
@@ -71,7 +71,7 @@ public class TrafficController : MonoBehaviour
         //Parse and store topic information
         TopicInformation info = ParseTopic(topic);
 
-        if (info.componentType == ComponentTypes.TrafficLight)
+        if (info.componentType == ComponentTypes.traffic_light)
         {
             //Handle traffic lights
             //Try setting new traffic light state
@@ -137,19 +137,19 @@ public class TrafficController : MonoBehaviour
     #region Public Enums
     public enum LaneTypes
     {
-        Motorised,
-        Cycle,
-        Foot,
-        Vessel,
-        Track
+        motorised,
+        cycle,
+        foot,
+        vessel,
+        track
     }
 
     public enum ComponentTypes
     {
-        TrafficLight,
-        WarningLight,
-        Sensor,
-        Barrier
+        traffic_light,
+        warning_light,
+        sensor,
+        barrier
     }
     #endregion
 }

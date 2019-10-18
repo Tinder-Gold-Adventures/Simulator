@@ -36,8 +36,8 @@ public class M2QTTController : MonoBehaviour
     private byte qoSLevel = MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE;
     #endregion
 
-    // listen on all topics for a team
-    private string[] subTopics = { "24/#" };
+    //Topics to listen to
+    public string[] subTopics = new string[] { "24/#" };
 
     // Start is called before the first frame update
     void Start()
@@ -49,14 +49,17 @@ public class M2QTTController : MonoBehaviour
         }
 
         //Set team topics to listen to
-        subTopics = new string[] { $"{TargetTeamID.ToString()}/#" };
+        
 
         if (BrokerHostname != null && clientId != null)
         {
             Debug.Log($"Connecting to {BrokerHostname} : {BrokerPort}");
             Connect();
             client.MqttMsgPublishReceived += client_MqttMsgPublishedReceived; //Message handler
-            client.Subscribe(subTopics, new byte[] { qoSLevel });
+            foreach (var topic in subTopics)
+            {
+                client.Subscribe(new string[] { topic }, new byte[] { qoSLevel });
+            }
         }
 
         //Add event listener
@@ -71,7 +74,7 @@ public class M2QTTController : MonoBehaviour
         {
             client.Connect(clientId);
             Debug.Log($"Connected to {BrokerHostname}:{BrokerPort} as {clientId}");
-            Debug.Log($"Listening to Team {TargetTeamID} on: {TargetTeamID}/#");
+            Debug.Log($"Listening to Team {TargetTeamID}");
 
             //Publish "established connection"
             var testMessage = $"Simulator with clientId: {clientId} established a connection and is listening on topic(s) {TargetTeamID}/#";
@@ -99,7 +102,7 @@ public class M2QTTController : MonoBehaviour
             ? $"{topic.subGroupID}/{topic.componentType}/{topic.componentID}" //Contains subgroup
             : $"{topic.componentType}/{topic.componentID}"; //Does not contain subgroup
 
-        string topicString = $"{TargetTeamID}/{topic.laneType}/{topic.groupID}/{subGroup}";
+        string topicString = $"{TargetTeamID}/{topic.laneType}/{topic.groupID}/{subGroup}".ToLower();
 
         client.Publish(
             topicString, Encoding.UTF8.GetBytes(msg),

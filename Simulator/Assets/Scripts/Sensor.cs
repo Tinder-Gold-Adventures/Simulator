@@ -12,6 +12,7 @@ public class Sensor : MonoBehaviour
 
     [HideInInspector]
     public bool IsTriggered = false;
+    private int carCount = 0;
 
     public delegate void TriggeredSensor(LaneTypes laneType, int groupId, int subgroupId, int componentId, bool isTriggered);
     public event TriggeredSensor OnSensorTriggered;
@@ -20,8 +21,13 @@ public class Sensor : MonoBehaviour
     {
         if(other.gameObject.tag == "Car")
         {
-            IsTriggered = true;
-            OnSensorTriggered(LaneType, GroupID, SubgroupID, ComponentID, IsTriggered);
+            carCount++;
+
+            if (!IsTriggered)
+            {
+                IsTriggered = true;
+                OnSensorTriggered(LaneType, GroupID, SubgroupID, ComponentID, IsTriggered);
+            }
         }
     }
 
@@ -29,8 +35,13 @@ public class Sensor : MonoBehaviour
     {
         if (other.gameObject.tag == "Car")
         {
-            IsTriggered = false;
-            OnSensorTriggered(LaneType, GroupID, SubgroupID, ComponentID, IsTriggered);
+            carCount--;
+
+            if (IsTriggered && carCount == 0)
+            {
+                IsTriggered = false;
+                OnSensorTriggered(LaneType, GroupID, SubgroupID, ComponentID, IsTriggered);
+            }
         }
     }
 }
