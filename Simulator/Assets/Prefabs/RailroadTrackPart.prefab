@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &301207280996416921
+--- !u!1 &120087560698452308
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8785995470333541294}
-  - component: {fileID: 820353721420725788}
-  - component: {fileID: 8329352152233406193}
-  - component: {fileID: 5413844992211026800}
+  - component: {fileID: 1122363575868038626}
+  - component: {fileID: 419871820363548977}
+  - component: {fileID: 9002992503920141761}
   m_Layer: 0
-  m_Name: Railroadtrack placeholder
+  m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8785995470333541294
+--- !u!4 &1122363575868038626
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 301207280996416921}
-  m_LocalRotation: {x: -0, y: -0.04902719, z: -0, w: 0.9987975}
-  m_LocalPosition: {x: 20.5, y: 0, z: -96.2}
-  m_LocalScale: {x: 509.41714, y: 0.6, z: 4.9697437}
+  m_GameObject: {fileID: 120087560698452308}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 7493339381687766746}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -5.6200004, z: 0}
---- !u!33 &820353721420725788
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &419871820363548977
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 301207280996416921}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &8329352152233406193
+  m_GameObject: {fileID: 120087560698452308}
+  m_Mesh: {fileID: -2432090755550338912, guid: f1e9f4324a0014242951d7b2743b0734, type: 3}
+--- !u!23 &9002992503920141761
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 301207280996416921}
+  m_GameObject: {fileID: 120087560698452308}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -58,7 +57,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 72f76cc6da7bafd4587d4c3e75a085e1, type: 2}
+  - {fileID: -1444460858095362738, guid: f1e9f4324a0014242951d7b2743b0734, type: 3}
+  - {fileID: -3155047780354543793, guid: f1e9f4324a0014242951d7b2743b0734, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,16 +79,34 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5413844992211026800
-BoxCollider:
+--- !u!1 &5883646904078122185
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 301207280996416921}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7493339381687766746}
+  m_Layer: 0
+  m_Name: RailroadTrackPart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7493339381687766746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5883646904078122185}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -578.954, y: 0, z: -0.10921701}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1122363575868038626}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -7.2330003, z: 0}
