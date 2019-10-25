@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583585159620837274}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 7948392556756051988}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &891787142798979071
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -57,8 +57,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8992934318045909824, guid: 72e8235155c68b44184acbeff7c38df0, type: 3}
-  - {fileID: -8148153331836476231, guid: 72e8235155c68b44184acbeff7c38df0, type: 3}
+  - {fileID: 2100000, guid: dccc038ab64aaa54eac651a46d0fa279, type: 2}
+  - {fileID: 2100000, guid: f75d2c7e35385f148bc6aa15a2cadc3b, type: 2}
   - {fileID: 7952285778249672240, guid: 72e8235155c68b44184acbeff7c38df0, type: 3}
   - {fileID: 4730564393733907921, guid: 72e8235155c68b44184acbeff7c38df0, type: 3}
   m_StaticBatchInfo:
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 7948392556756051988}
   - component: {fileID: 9066814067213385055}
   m_Layer: 0
-  m_Name: FullTrain
+  m_Name: Train
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,14 +105,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6346984970465794567}
-  m_LocalRotation: {x: -0, y: -0.047156803, z: -0, w: 0.9988875}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -42.88, y: -0.93, z: -103.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 441496960874052396}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -5.406, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9066814067213385055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,3 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e3569bd98ec2f545a5f68d6a3397e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Speed: 50
+  RotationSpeed: 2
+  MinDistance: 0.5
+  spawnLocation: 0

@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 72e8235155c68b44184acbeff7c38df0
+guid: 09e9d7ce5b2f6c345a2d29fbbdb6bbf2
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TrainRed
-    second: {fileID: 2100000, guid: f75d2c7e35385f148bc6aa15a2cadc3b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Window
-    second: {fileID: 2100000, guid: dccc038ab64aaa54eac651a46d0fa279, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0

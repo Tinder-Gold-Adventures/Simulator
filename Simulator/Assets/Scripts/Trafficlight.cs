@@ -1,15 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TrafficController;
 
 public class Trafficlight : MonoBehaviour
 {
+    //Component Information
+    public LaneTypes laneType;
     public int GroupID;
     public int SubgroupID = -1;
     public int ComponentID;
-    private GameObject barrier;
+    [HideInInspector]
+    public ComponentTypes componentType = ComponentTypes.traffic_light;
     public TrafficLightState state = TrafficLightState.Red;
 
+    //Private behavoir information
+    private GameObject barrier;
+
+    //Optional, only for testing purposes
     private float timeTillChange = 5f;
     private float currentTime = 0f;
 
@@ -81,5 +89,15 @@ public enum TrafficLightState
     Yellow = 1,
     Green = 2,
     Disabled = 3
+}
+public enum WarningLightState
+{
+    Off = 0,
+    On = 1
+}
+public enum BarrierState
+{
+    Open = 0,
+    Closed = 1
 }
 #endregion

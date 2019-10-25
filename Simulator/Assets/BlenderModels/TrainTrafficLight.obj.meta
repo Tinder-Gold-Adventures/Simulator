@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 72e8235155c68b44184acbeff7c38df0
+guid: dc3b7cf99b7849341a534291b30d2033
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: TrainRed
-    second: {fileID: 2100000, guid: f75d2c7e35385f148bc6aa15a2cadc3b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Window
-    second: {fileID: 2100000, guid: dccc038ab64aaa54eac651a46d0fa279, type: 2}
+      name: M_LightLamp
+    second: {fileID: 2100000, guid: 366435201bd2c0842b6b53ff7d4d5f0b, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

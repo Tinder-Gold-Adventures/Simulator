@@ -22,6 +22,8 @@ public class TrafficController : MonoBehaviour
     #endregion
 
     private List<Trafficlight> trafficlights; //Contains all traffic lights in game
+    private List<WarningLight> warninglights; //Contains all warning lights in game
+    private List<Barrier> barriers; //Contains all barriers in game
     private List<Sensor> sensors; //Contains all sensors in game
 
     public delegate void Publish(TopicInformation topic, string message);
@@ -31,6 +33,8 @@ public class TrafficController : MonoBehaviour
     void Start()
     {
         trafficlights = FindObjectsOfType<Trafficlight>().ToList();
+        warninglights = FindObjectsOfType<WarningLight>().ToList();
+        barriers = FindObjectsOfType<Barrier>().ToList();
         sensors = FindObjectsOfType<Sensor>().ToList();
         foreach (var sensor in sensors)
         {
@@ -53,6 +57,34 @@ public class TrafficController : MonoBehaviour
         trafficlight.state = newState;
     }
 
+    private void SetWarningLightState(int groupID, int subgroupId, int componentID, WarningLightState newState)
+    {
+        //If warning light has no subgroup it will be -1 by default, so this function works
+        WarningLight warninglight = warninglights.Find(l => l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
+
+        if (warninglight == null)
+        {
+            Debug.LogError($"ERROR: CarTrafficlight with groupID: {groupID} and componentID: {componentID} not found");
+            return;
+        }
+
+        warninglight.state = newState;
+    }
+
+    private void SetBarrierState(int groupID, int subgroupId, int componentID, BarrierState newState)
+    {
+        //If traffic light has no subgroup it will be -1 by default, so this function works
+        Barrier barrier = barriers.Find(l => l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
+
+        if (barrier == null)
+        {
+            Debug.LogError($"ERROR: CarTrafficlight with groupID: {groupID} and componentID: {componentID} not found");
+            return;
+        }
+
+        barrier.state = newState;
+    }
+
     //Event listener to sensor trigger
     private void OnSensorTriggered(LaneTypes laneType, int groupId, int subgroupId, int componentId, bool isTriggered)
     {
@@ -71,19 +103,52 @@ public class TrafficController : MonoBehaviour
         //Parse and store topic information
         TopicInformation info = ParseTopic(topic);
 
-        if (info.componentType == ComponentTypes.traffic_light)
+        switch (info.componentType)
         {
-            //Handle traffic lights
-            //Try setting new traffic light state
-            try
-            {
-                TrafficLightState newState = (TrafficLightState)System.Enum.Parse(typeof(TrafficLightState), message);
-                SetTrafficLightState(info.groupID, info.subGroupID, info.componentID, newState);
-            }
-            catch
-            {
-                Debug.LogError($"ERROR: Tried setting invalid traffic light state: '{message}' for traffic light with GroupID: {info.groupID} and ComponentID: {info.componentID}");
-            }
+            case ComponentTypes.traffic_light:
+                //Handle traffic lights
+                //Try setting new traffic light state
+                try
+                {
+                    TrafficLightState newState = (TrafficLightState)System.Enum.Parse(typeof(TrafficLightState), message);
+                    SetTrafficLightState(info.groupID, info.subGroupID, info.componentID, newState);
+                }
+                catch
+                {
+                    Debug.LogError($"ERROR: Tried setting invalid traffic light state: '{message}' for traffic light with GroupID: {info.groupID} and ComponentID: {info.componentID}");
+                }
+                break;
+
+            case ComponentTypes.warning_light:
+                //Handle warning lights
+                //Try setting new warning light state
+                try
+                {
+                    WarningLightState newState = (WarningLightState)System.Enum.Parse(typeof(WarningLightState), message);
+                    SetWarningLightState(info.groupID, info.subGroupID, info.componentID, newState);
+                }
+                catch
+                {
+                    Debug.LogError($"ERROR: Tried setting invalid warning light state: '{message}' for warning light with GroupID: {info.groupID} and ComponentID: {info.componentID}");
+                }
+                break;
+
+            case ComponentTypes.sensor: //Don't have to handle sensor data
+                break;
+
+            case ComponentTypes.barrier:
+                //Handle barriers
+                //Try setting new barrier state
+                try
+                {
+                    BarrierState newState = (BarrierState)System.Enum.Parse(typeof(BarrierState), message);
+                    SetBarrierState(info.groupID, info.subGroupID, info.componentID, newState);
+                }
+                catch
+                {
+                    Debug.LogError($"ERROR: Tried setting invalid barrier state: '{message}' for barrier with GroupID: {info.groupID} and ComponentID: {info.componentID}");
+                }
+                break;
         }
     }
 
@@ -91,7 +156,7 @@ public class TrafficController : MonoBehaviour
     private TopicInformation ParseTopic(string topic)
     {
         string[] topicInfo = topic.Split('/');
-
+       
         return new TopicInformation(topicInfo); //The constructor knows how to handle whether a topic includes a subgroup or not
     }
 
@@ -122,7 +187,7 @@ public class TrafficController : MonoBehaviour
                 componentType = (ComponentTypes)System.Enum.Parse(typeof(ComponentTypes), topicInformation[3]);
                 componentID = int.Parse(topicInformation[4]);
             }
-            else //With subgroup ("team_id/lane_type/group_id/subgroup_id/component_type/component_id")
+            else if(topicInformation.Length == 6)//With subgroup ("team_id/lane_type/group_id/subgroup_id/component_type/component_id")
             {
                 laneType = (LaneTypes)System.Enum.Parse(typeof(LaneTypes), topicInformation[1]);
                 groupID = int.Parse(topicInformation[2]);

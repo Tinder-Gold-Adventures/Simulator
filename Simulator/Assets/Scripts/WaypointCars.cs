@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class CarSpawn : MonoBehaviour
+public class WaypointCars : MonoBehaviour
 {
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawCube(transform.position, new Vector3(8,8,8));
+        Gizmos.DrawSphere(transform.position, 1.5f);
     }
 }
