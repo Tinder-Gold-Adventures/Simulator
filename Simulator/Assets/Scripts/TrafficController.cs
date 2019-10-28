@@ -74,7 +74,7 @@ public class TrafficController : MonoBehaviour
     private void SetBarrierState(int groupID, int subgroupId, int componentID, BarrierState newState)
     {
         //If traffic light has no subgroup it will be -1 by default, so this function works
-        Barrier barrier = barriers.Find(l => l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
+        Barrier barrier = barriers.Find(l => l.GroupIds.Contains(groupID) && l.SubgroupID == subgroupId && l.ComponentID == componentID);
 
         if (barrier == null)
         {
@@ -82,7 +82,10 @@ public class TrafficController : MonoBehaviour
             return;
         }
 
-        barrier.state = newState;
+        if(newState != barrier.state)
+        {
+            barrier.IsChangingStates = true;
+        }
     }
 
     //Event listener to sensor trigger

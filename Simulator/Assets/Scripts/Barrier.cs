@@ -7,7 +7,8 @@ public class Barrier : MonoBehaviour
 {
     //Component Information
     public LaneTypes laneType;
-    public int GroupID;
+    [InspectorName("Group Id's")]
+    public int[] GroupIds;
     public int SubgroupID = -1;
     public int ComponentID;
     [HideInInspector]
@@ -23,7 +24,13 @@ public class Barrier : MonoBehaviour
     private float rotationProgress = 0f;
     [HideInInspector]
     public bool IsChangingStates = false;
+    private Trafficlight_Barrier barrier;
 
+
+    void Start()
+    {
+        barrier = gameObject.GetComponent<Trafficlight_Barrier>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -31,6 +38,8 @@ public class Barrier : MonoBehaviour
         {
             UpdateBarrierStatus();
         }
+
+        barrier.IsActive = state == BarrierState.Open ? false : true;
     }
 
     public void UpdateBarrierStatus()
@@ -51,12 +60,5 @@ public class Barrier : MonoBehaviour
             state = state == BarrierState.Open ? BarrierState.Closed : BarrierState.Open;
             rotationProgress = 0f;
         }
-    }
-
-    //Changes barrier's state from Open->Closed or Closed->Open
-    public void ChangeBarrierState()
-    {
-        IsChangingStates = true;
-        rotationProgress = 0f;
     }
 }

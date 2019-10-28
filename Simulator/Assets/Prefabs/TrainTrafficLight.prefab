@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 7600440111277351042}
   - component: {fileID: 6768261078293086913}
   m_Layer: 0
-  m_Name: BarrierModel
+  m_Name: barrier_model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 8318847615136119907}
   - component: {fileID: 743332660861358227}
   m_Layer: 0
-  m_Name: TrafficLight
+  m_Name: trafficlight_model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,7 +190,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 7659360798506365906, guid: dc3b7cf99b7849341a534291b30d2033, type: 3}
   - {fileID: 4323969437999975631, guid: dc3b7cf99b7849341a534291b30d2033, type: 3}
-  - {fileID: 5414262839115401326, guid: dc3b7cf99b7849341a534291b30d2033, type: 3}
+  - {fileID: 2100000, guid: 366435201bd2c0842b6b53ff7d4d5f0b, type: 2}
   - {fileID: -115901596894162751, guid: dc3b7cf99b7849341a534291b30d2033, type: 3}
   - {fileID: 7595118301180405069, guid: dc3b7cf99b7849341a534291b30d2033, type: 3}
   m_StaticBatchInfo:
@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 4442733215353635281}
   - component: {fileID: 6747362898018298282}
   - component: {fileID: 1202417703519096517}
+  - component: {fileID: 8127112963334057555}
   m_Layer: 0
   m_Name: Barrier
   m_TagString: Trafficlight_Barrier
@@ -272,10 +273,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laneType: 0
-  GroupID: 0
+  GroupIds: 0000000001000000
   SubgroupID: -1
   ComponentID: 0
   componentType: 3
   state: 0
   RotationSpeed: 1
   IsChangingStates: 0
+--- !u!114 &8127112963334057555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8820269493896889438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8b85c4f00d242409ec22cead560e82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsActive: 0

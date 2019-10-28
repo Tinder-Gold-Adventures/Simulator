@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 3043798961551718134}
   - component: {fileID: 1481494201162502681}
   - component: {fileID: 1924637504946849926}
+  - component: {fileID: 9060187259373166942}
   m_Layer: 0
   m_Name: Barrier
   m_TagString: Trafficlight_Barrier
@@ -272,10 +273,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laneType: 0
-  GroupID: 0
+  GroupIds: 0000000001000000
   SubgroupID: -1
   ComponentID: 0
   componentType: 3
   state: 0
   RotationSpeed: 1
   IsChangingStates: 0
+--- !u!114 &9060187259373166942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8003843405283699783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8b85c4f00d242409ec22cead560e82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsActive: 0

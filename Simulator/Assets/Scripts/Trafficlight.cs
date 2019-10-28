@@ -15,7 +15,7 @@ public class Trafficlight : MonoBehaviour
     public TrafficLightState state = TrafficLightState.Red;
 
     //Private behavoir information
-    private GameObject barrier;
+    private Trafficlight_Barrier barrier;
 
     //Optional, only for testing purposes
     private float timeTillChange = 5f;
@@ -25,7 +25,7 @@ public class Trafficlight : MonoBehaviour
     void Start()
     {
         //Finds the barrier which is a child of this trafficlight object
-        barrier = new List<GameObject>(GameObject.FindGameObjectsWithTag("Trafficlight_Barrier")).Find(g => g.transform.IsChildOf(transform));
+        barrier = GetComponentInChildren<Trafficlight_Barrier>();
 
         timeTillChange = Random.Range(4f, 18f);
     }
@@ -50,16 +50,16 @@ public class Trafficlight : MonoBehaviour
             timeTillChange = Random.Range(4f, 18f);
         }
 
-        bool barrierActive = barrier.activeSelf;
+        bool barrierActive = barrier.IsActive;
         if(state == TrafficLightState.Red && !barrierActive)
         {            
             //Light is red, activate the barrier
-            barrier.SetActive(true);
+            barrier.IsActive = true;
         }
         else if(state == TrafficLightState.Green && barrierActive)
         {
             //Light is green, deactivate the barrier
-            barrier.SetActive(false);
+            barrier.IsActive = false;
         }
     }
 

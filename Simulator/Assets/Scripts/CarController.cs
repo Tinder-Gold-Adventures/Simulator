@@ -19,7 +19,7 @@ public class CarController : MonoBehaviour
 
     //Behavior information
     private bool isInFrontOfRedLight = false;
-    private GameObject trafficLightBarrier; //Traffic light barrier that car is waiting for
+    private Trafficlight_Barrier trafficLightBarrier; //Traffic light barrier that car is waiting for
     private bool isBehindOtherCar = false;
     private GameObject otherCar; //Car that is in front of us
 
@@ -104,10 +104,11 @@ public class CarController : MonoBehaviour
         //Traffic light in-sight is Red, don't proceed
         if (other.transform.tag == "Trafficlight_Barrier")
         {
-            if (other.gameObject.activeSelf)
+            Trafficlight_Barrier barrier = other.GetComponent<Trafficlight_Barrier>();
+            if (barrier.IsActive)
             {
                 isInFrontOfRedLight = true;
-                trafficLightBarrier = other.gameObject;
+                trafficLightBarrier = barrier;
             }
         }
 
@@ -136,6 +137,6 @@ public class CarController : MonoBehaviour
             return false;
         }
 
-        return trafficLightBarrier.activeSelf;
+        return trafficLightBarrier.IsActive;
     }
 }

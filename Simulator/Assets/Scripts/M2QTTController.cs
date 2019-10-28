@@ -37,7 +37,8 @@ public class M2QTTController : MonoBehaviour
     #endregion
 
     //Topics to listen to
-    public string[] subTopics = new string[] { "24/#" };
+    [Tooltip("The Target Team number is prefixed to this. With group id 24 example: motorised/+/traffic_light/# results in MQTT listening to 24/motorised/+/traffic_light/#")]
+    public string[] subTopics = new string[] { "24/#" }; //Set topics to listen to in Inspector
 
     // Start is called before the first frame update
     void Start()
@@ -47,10 +48,7 @@ public class M2QTTController : MonoBehaviour
             Debug.LogError($"ERROR: Tried connecting to a non-valid Team ID (TeamID: {TargetTeamID})");
             Application.Quit();
         }
-
-        //Set team topics to listen to
         
-
         if (BrokerHostname != null && clientId != null)
         {
             Debug.Log($"Connecting to {BrokerHostname} : {BrokerPort}");
@@ -58,7 +56,7 @@ public class M2QTTController : MonoBehaviour
             client.MqttMsgPublishReceived += client_MqttMsgPublishedReceived; //Message handler
             foreach (var topic in subTopics)
             {
-                client.Subscribe(new string[] { topic }, new byte[] { qoSLevel });
+                client.Subscribe(new string[] { $"{TargetTeamID}/{topic}" }, new byte[] { qoSLevel });
             }
         }
 
