@@ -7,6 +7,7 @@ TagManager:
   - Trafficlight_Barrier
   - Car_Model
   - Car
+  - Bridge
   layers:
   - Default
   - TransparentFX

@@ -26,11 +26,11 @@ public class Barrier : MonoBehaviour
     public bool IsChangingStates = false;
     private Trafficlight_Barrier barrier;
 
-
     void Start()
     {
         barrier = gameObject.GetComponent<Trafficlight_Barrier>();
     }
+
     // Update is called once per frame
     void Update()
     {

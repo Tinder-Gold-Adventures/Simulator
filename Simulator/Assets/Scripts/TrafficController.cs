@@ -25,6 +25,7 @@ public class TrafficController : MonoBehaviour
     private List<WarningLight> warninglights; //Contains all warning lights in game
     private List<Barrier> barriers; //Contains all barriers in game
     private List<Sensor> sensors; //Contains all sensors in game
+    private Bridge bridge; //Contains bridge object
 
     public delegate void Publish(TopicInformation topic, string message);
     public static event Publish OnPublishToController;
@@ -36,17 +37,44 @@ public class TrafficController : MonoBehaviour
         warninglights = FindObjectsOfType<WarningLight>().ToList();
         barriers = FindObjectsOfType<Barrier>().ToList();
         sensors = FindObjectsOfType<Sensor>().ToList();
+        bridge = FindObjectOfType<Bridge>();
         foreach (var sensor in sensors)
         {
             sensor.OnSensorTriggered += OnSensorTriggered;
         }
     }
 
-    //
-    private void SetTrafficLightState(int groupID, int subgroupId, int componentID, TrafficLightState newState)
+    void Update()
+    {
+        UpdateBridgePosition();
+    }
+
+    //Checks if all barriers are closed, if so -> close bridge. If 1 barrier opens -> open bridge back up
+    private void UpdateBridgePosition()
+    {
+        List<Barrier> vesselBarriers = barriers.FindAll(b => b.laneType == LaneTypes.vessel);
+        List<Barrier> closedVesselBarriers = vesselBarriers.Where(b => b.state == BarrierState.Closed).ToList();
+
+        if (bridge.state == BarrierState.Closed)
+        {
+            if (vesselBarriers.Count == closedVesselBarriers.Count)
+            {
+                bridge.IsChangingStates = true;
+            }
+        }
+        else
+        {
+            if (vesselBarriers.Count != closedVesselBarriers.Count)
+            {
+                bridge.IsChangingStates = true;
+            }
+        }
+    }
+
+    private void SetTrafficLightState(LaneTypes lanetype, int groupID, int subgroupId, int componentID, TrafficLightState newState)
     {
         //If traffic light has no subgroup it will be -1 by default, so this function works
-        Trafficlight trafficlight = trafficlights.Find(l => l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
+        Trafficlight trafficlight = trafficlights.Find(l => l.laneType == lanetype && l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
 
         if (trafficlight == null)
         {
@@ -57,10 +85,10 @@ public class TrafficController : MonoBehaviour
         trafficlight.state = newState;
     }
 
-    private void SetWarningLightState(int groupID, int subgroupId, int componentID, WarningLightState newState)
+    private void SetWarningLightState(LaneTypes lanetype, int groupID, int subgroupId, int componentID, WarningLightState newState)
     {
         //If warning light has no subgroup it will be -1 by default, so this function works
-        WarningLight warninglight = warninglights.Find(l => l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
+        WarningLight warninglight = warninglights.Find(l => l.laneType == lanetype && l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
 
         if (warninglight == null)
         {
@@ -71,10 +99,10 @@ public class TrafficController : MonoBehaviour
         warninglight.state = newState;
     }
 
-    private void SetBarrierState(int groupID, int subgroupId, int componentID, BarrierState newState)
+    private void SetBarrierState(LaneTypes lanetype, int groupID, int subgroupId, int componentID, BarrierState newState)
     {
         //If traffic light has no subgroup it will be -1 by default, so this function works
-        Barrier barrier = barriers.Find(l => l.GroupIds.Contains(groupID) && l.SubgroupID == subgroupId && l.ComponentID == componentID);
+        Barrier barrier = barriers.Find(b => b.laneType == lanetype && b.GroupIds.Contains(groupID) && b.SubgroupID == subgroupId && b.ComponentID == componentID);
 
         if (barrier == null)
         {
@@ -114,7 +142,7 @@ public class TrafficController : MonoBehaviour
                 try
                 {
                     TrafficLightState newState = (TrafficLightState)System.Enum.Parse(typeof(TrafficLightState), message);
-                    SetTrafficLightState(info.groupID, info.subGroupID, info.componentID, newState);
+                    SetTrafficLightState(info.laneType, info.groupID, info.subGroupID, info.componentID, newState);
                 }
                 catch
                 {
@@ -128,7 +156,7 @@ public class TrafficController : MonoBehaviour
                 try
                 {
                     WarningLightState newState = (WarningLightState)System.Enum.Parse(typeof(WarningLightState), message);
-                    SetWarningLightState(info.groupID, info.subGroupID, info.componentID, newState);
+                    SetWarningLightState(info.laneType, info.groupID, info.subGroupID, info.componentID, newState);
                 }
                 catch
                 {
@@ -145,7 +173,7 @@ public class TrafficController : MonoBehaviour
                 try
                 {
                     BarrierState newState = (BarrierState)System.Enum.Parse(typeof(BarrierState), message);
-                    SetBarrierState(info.groupID, info.subGroupID, info.componentID, newState);
+                    SetBarrierState(info.laneType, info.groupID, info.subGroupID, info.componentID, newState);
                 }
                 catch
                 {
