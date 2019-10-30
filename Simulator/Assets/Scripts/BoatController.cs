@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CarController : MonoBehaviour
+public class BoatController : MonoBehaviour
 {
-    public float DriveSpeed = 5f;
-    public float RotationSpeed = 10f;
-    public float MinDistance = 2f;
+    public float DriveSpeed = 1f;
+    public float RotationSpeed = 1f;
+    public float MinDistance = .8f;
 
     [HideInInspector]
     //Route & spawn information
@@ -19,18 +18,18 @@ public class CarController : MonoBehaviour
 
     //Behavior information
     private bool isInFrontOfRedLight = false;
-    private Trafficlight_Barrier trafficLightBarrier; //Traffic light barrier that car is waiting for
-    private bool isBehindOtherCar = false;
+    private Trafficlight_Barrier trafficLightBarrier; //Traffic light barrier that boat is waiting for
+    private bool isBehindOtherBoat = false;
     [HideInInspector]
-    public CarController otherCar; //Car that is in front of us
+    public BoatController otherBoat; //Boat that is in front of us
     private bool hasPriority = false;
 
     // Start is called before the first frame update
     void Start()
     {
         //Find all possible routes from current spawn location
-        List<RoutesList> possibleRoutes = FindObjectOfType<CarSpawner>().Routes.Where(r => r.From == spawnLocation).ToList();
-        if(possibleRoutes != null)
+        List<RoutesList> possibleRoutes = FindObjectOfType<BoatSpawner>().Routes.Where(r => r.From == spawnLocation).ToList();
+        if (possibleRoutes != null)
         {
             var index = UnityEngine.Random.Range(0, possibleRoutes.Count);
             route = possibleRoutes[index];
@@ -55,10 +54,11 @@ public class CarController : MonoBehaviour
         }
 
         float distanceToWaypoint = Vector3.Distance(transform.position, nextWaypoint.transform.position);
-        if(distanceToWaypoint > MinDistance)
+        if (distanceToWaypoint > MinDistance)
         {
             //Check for obstacles
-            if (PathIsClear()) {
+            if (PathIsClear())
+            {
                 //Move to next waypoint if not yet there
                 MoveToNextWaypoint();
             }
@@ -66,15 +66,15 @@ public class CarController : MonoBehaviour
         else
         {
             waypointIndex++;
-            if(waypointIndex >= route.Route.Length)
+            if (waypointIndex >= route.Route.Length)
             {
                 //Reached destination
                 nextWaypoint = null;
-                return; 
+                return;
             }
 
             //Set next waypoint
-            nextWaypoint = route.Route[waypointIndex];          
+            nextWaypoint = route.Route[waypointIndex];
         }
     }
 
@@ -87,7 +87,7 @@ public class CarController : MonoBehaviour
         transform.position += transform.forward * DriveSpeed * Time.deltaTime;
     }
 
-    //Returns true if not waiting for red light and not in front of another car
+    //Returns true if not waiting for red light and not in front of another boat
     private bool PathIsClear()
     {
         isInFrontOfRedLight = TrafficLightIsRed();
@@ -97,7 +97,7 @@ public class CarController : MonoBehaviour
             trafficLightBarrier = null;
         }
 
-        return !isInFrontOfRedLight && (!isBehindOtherCar || hasPriority);
+        return !isInFrontOfRedLight && (!isBehindOtherBoat || hasPriority);
     }
 
     //Fires when colliding with another collider
@@ -114,16 +114,16 @@ public class CarController : MonoBehaviour
             }
         }
 
-        //In front of other (waiting) car
-        if (other.transform.tag == "Car_Model")
+        //In front of other (waiting) boat
+        if (other.transform.tag == "Boat_Model")
         {
-            isBehindOtherCar = true;
-            otherCar = other.GetComponentInParent<CarController>();
+            isBehindOtherBoat = true;
+            otherBoat = other.GetComponentInParent<BoatController>();
             
             //If the other boat also collides with this boat, give this one priority to move first
-            if (otherCar.otherCar == this)
+            if(otherBoat.otherBoat == this)
             {
-                if (!otherCar.hasPriority)
+                if (!otherBoat.hasPriority)
                 {
                     hasPriority = true;
                 }
@@ -134,17 +134,17 @@ public class CarController : MonoBehaviour
     //Fires when no longer colliding with another collider
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.tag == "Car_Model")
+        if (other.transform.tag == "Boat_Model")
         {
-            isBehindOtherCar = false;
-            otherCar = null;
+            isBehindOtherBoat = false;
+            otherBoat = null;
             hasPriority = false;
         }
     }
 
     private bool TrafficLightIsRed()
     {
-        if(trafficLightBarrier == null)
+        if (trafficLightBarrier == null)
         {
             return false;
         }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7541669221380560642}
-  - component: {fileID: 6792771113808863465}
+  - component: {fileID: 3137338458996062318}
   m_Layer: 0
   m_Name: Waypoint
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6792771113808863465
+--- !u!114 &3137338458996062318
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

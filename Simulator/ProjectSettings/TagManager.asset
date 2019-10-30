@@ -8,6 +8,8 @@ TagManager:
   - Car_Model
   - Car
   - Bridge
+  - Boat
+  - Boat_Model
   layers:
   - Default
   - TransparentFX
