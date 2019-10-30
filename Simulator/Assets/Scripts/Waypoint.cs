@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    public VehicleType VehicleType;
+    public TrafficType VehicleType;
 
     private void OnDrawGizmos()
     {
@@ -12,23 +12,23 @@ public class Waypoint : MonoBehaviour
 
         switch (VehicleType)
         {
-            case VehicleType.Car:
+            case TrafficType.Car:
                 Gizmos.color = Color.red;
                 break;
 
-            case VehicleType.Train:
+            case TrafficType.Train:
                 Gizmos.color = Color.yellow;
                 break;
 
-            case VehicleType.Boat:
+            case TrafficType.Boat:
                 Gizmos.color = Color.green;
                 break;
 
-            case VehicleType.Bicycle:
+            case TrafficType.Bicycle:
                 Gizmos.color = Color.cyan;
                 break;
 
-            case VehicleType.Passenger:
+            case TrafficType.Passenger:
                 Gizmos.color = Color.white;
                 break;
         }

@@ -39,17 +39,17 @@ public class VehicleSpawner : MonoBehaviour
     {
         if(carTimer >= CarSpawntimeInSec)
         {
-            SpawnVehicle(VehicleType.Car);
+            SpawnVehicle(TrafficType.Car);
             carTimer -= CarSpawntimeInSec;
         }
         if (trainTimer >= TrainSpawntimeInSec)
         {
-            SpawnVehicle(VehicleType.Train);
+            SpawnVehicle(TrafficType.Train);
             trainTimer -= TrainSpawntimeInSec;
         }
         if (boatTimer >= BoatSpawntimeInSec)
         {
-            SpawnVehicle(VehicleType.Boat);
+            SpawnVehicle(TrafficType.Boat);
             boatTimer -= BoatSpawntimeInSec;
         }
 
@@ -59,7 +59,7 @@ public class VehicleSpawner : MonoBehaviour
         boatTimer += Time.deltaTime;
     }
 
-    void SpawnVehicle(VehicleType type)
+    void SpawnVehicle(TrafficType type)
     {
         int randomIndex = -1;
         Spawner randomSpawner = null;
@@ -67,7 +67,7 @@ public class VehicleSpawner : MonoBehaviour
 
         switch (type)
         {
-            case VehicleType.Car:
+            case TrafficType.Car:
                 //Spawn car at random Spawner position 
                 randomIndex = UnityEngine.Random.Range(0, CarSpawners.Length);
                 randomSpawner = CarSpawners[randomIndex];
@@ -76,7 +76,7 @@ public class VehicleSpawner : MonoBehaviour
                 spawnedVehicle.spawnLocation = randomSpawner.Location;
                 break;
 
-            case VehicleType.Train:
+            case TrafficType.Train:
                 //Spawn train at random Spawner position 
                 randomIndex = UnityEngine.Random.Range(0, TrainSpawners.Length);
                 randomSpawner = TrainSpawners[randomIndex];
@@ -85,7 +85,7 @@ public class VehicleSpawner : MonoBehaviour
                 spawnedVehicle.spawnLocation = randomSpawner.Location;
                 break;
 
-            case VehicleType.Boat:
+            case TrafficType.Boat:
                 //Spawn boat at random Spawner position 
                 randomIndex = UnityEngine.Random.Range(0, BoatSpawners.Length);
                 randomSpawner = BoatSpawners[randomIndex];
@@ -94,47 +94,12 @@ public class VehicleSpawner : MonoBehaviour
                 spawnedVehicle.spawnLocation = randomSpawner.Location;
                 break;
 
-            case VehicleType.Bicycle:
+            case TrafficType.Bicycle:
                 break;
 
-            case VehicleType.Passenger:
+            case TrafficType.Passenger:
                 break;
         }
     }
 }
 
-//A class that contains a route
-[Serializable]
-public class RoutesList
-{
-    public string Name;
-    public Location From;
-    public Location To;
-    public GameObject[] Route;
-}
-
-//A class that contains a spawn object with a location
-[Serializable]
-public class Spawner
-{
-    public Location Location;
-    public GameObject Object; //The actual spawner GameObject
-}
-
-//Possible spawn locations
-public enum Location
-{
-    North,
-    East,
-    South,
-    West
-}
-
-public enum VehicleType
-{
-    Car,
-    Train,
-    Boat,
-    Bicycle,
-    Passenger
-}

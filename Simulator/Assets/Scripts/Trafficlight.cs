@@ -81,23 +81,3 @@ public class Trafficlight : MonoBehaviour
         Gizmos.DrawCube(transform.position + new Vector3(0, 9, 0), new Vector3(2f, 2f, 2f));
     }
 }
-
-#region Public Enums
-public enum TrafficLightState
-{
-    Red = 0,
-    Yellow = 1,
-    Green = 2,
-    Disabled = 3
-}
-public enum WarningLightState
-{
-    Off = 0,
-    On = 1
-}
-public enum BarrierState
-{
-    Open = 0,
-    Closed = 1
-}
-#endregion

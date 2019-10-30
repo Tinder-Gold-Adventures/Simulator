@@ -94,7 +94,7 @@ public class M2QTTController : MonoBehaviour
     }
 
     //Published to the broker on a specified topic
-    public void Publish(TrafficController.TopicInformation topic, string msg)
+    public void Publish(TopicInformation topic, string msg)
     {
         string subGroup = topic.subGroupID >= 0
             ? $"{topic.subGroupID}/{topic.componentType}/{topic.componentID}" //Contains subgroup

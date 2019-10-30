@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class VehicleController : MonoBehaviour
 {
-    public VehicleType VehicleType;
+    public TrafficType VehicleType;
     public float MovementSpeed = 5f;
     public float RotationSpeed = 10f;
     public float MinDistanceToWaypoint = 2f;
@@ -34,22 +34,22 @@ public class VehicleController : MonoBehaviour
         List<RoutesList> possibleRoutes = null;
         switch (VehicleType)
         {
-            case VehicleType.Car:
+            case TrafficType.Car:
                 possibleRoutes = FindObjectOfType<VehicleSpawner>().CarRoutes.Where(r => r.From == spawnLocation).ToList();
                 break;
 
-            case VehicleType.Train:
+            case TrafficType.Train:
                 possibleRoutes = FindObjectOfType<VehicleSpawner>().TrainRoutes.Where(r => r.From == spawnLocation).ToList();
                 break;
 
-            case VehicleType.Boat:
+            case TrafficType.Boat:
                 possibleRoutes = FindObjectOfType<VehicleSpawner>().BoatRoutes.Where(r => r.From == spawnLocation).ToList();
                 break;
 
-            case VehicleType.Bicycle:
+            case TrafficType.Bicycle:
                 break;
 
-            case VehicleType.Passenger:
+            case TrafficType.Passenger:
                 break;
         }
 

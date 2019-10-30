@@ -183,69 +183,10 @@ public class TrafficController : MonoBehaviour
         }
     }
 
-    #region Parse Topic Logic
     private TopicInformation ParseTopic(string topic)
     {
         string[] topicInfo = topic.Split('/');
        
         return new TopicInformation(topicInfo); //The constructor knows how to handle whether a topic includes a subgroup or not
     }
-
-    public class TopicInformation
-    {
-        public LaneTypes laneType;
-        public int groupID;
-        public int subGroupID;
-        public ComponentTypes componentType;
-        public int componentID;
-
-        public TopicInformation(LaneTypes lanetype, int groupid, int subgroupid, ComponentTypes componenttype, int componentid)
-        {
-            laneType = lanetype;
-            groupID = groupid;
-            subGroupID = subgroupid;
-            componentType = componenttype;
-            componentID = componentid;
-        }
-
-        public TopicInformation(string[] topicInformation)
-        {
-            if (topicInformation.Length == 5) //Without subgroup ("team_id/lane_type/group_id/component_type/component_id")
-            {
-                laneType = (LaneTypes)System.Enum.Parse(typeof(LaneTypes), topicInformation[1]);
-                groupID = int.Parse(topicInformation[2]);
-                subGroupID = -1;
-                componentType = (ComponentTypes)System.Enum.Parse(typeof(ComponentTypes), topicInformation[3]);
-                componentID = int.Parse(topicInformation[4]);
-            }
-            else if(topicInformation.Length == 6)//With subgroup ("team_id/lane_type/group_id/subgroup_id/component_type/component_id")
-            {
-                laneType = (LaneTypes)System.Enum.Parse(typeof(LaneTypes), topicInformation[1]);
-                groupID = int.Parse(topicInformation[2]);
-                subGroupID = int.Parse(topicInformation[3]);
-                componentType = (ComponentTypes)System.Enum.Parse(typeof(ComponentTypes), topicInformation[4]);
-                componentID = int.Parse(topicInformation[5]);
-            }
-        }
-    }
-    #endregion
-
-    #region Public Enums
-    public enum LaneTypes
-    {
-        motorised,
-        cycle,
-        foot,
-        vessel,
-        track
-    }
-
-    public enum ComponentTypes
-    {
-        traffic_light,
-        warning_light,
-        sensor,
-        barrier
-    }
-    #endregion
 }
