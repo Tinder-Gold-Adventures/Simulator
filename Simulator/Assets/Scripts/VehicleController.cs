@@ -1,13 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BoatController : MonoBehaviour
+public class VehicleController : MonoBehaviour
 {
-    public float DriveSpeed = 1f;
-    public float RotationSpeed = 1f;
-    public float MinDistance = .8f;
+    public VehicleType VehicleType;
+    public float MovementSpeed = 5f;
+    public float RotationSpeed = 10f;
+    public float MinDistanceToWaypoint = 2f;
+    public string[] CollidesWithTags;
 
     [HideInInspector]
     //Route & spawn information
@@ -18,21 +21,46 @@ public class BoatController : MonoBehaviour
 
     //Behavior information
     private bool isInFrontOfRedLight = false;
-    private Trafficlight_Barrier trafficLightBarrier; //Traffic light barrier that boat is waiting for
-    private bool isBehindOtherBoat = false;
+    private Trafficlight_Barrier trafficLightBarrier; //Traffic light barrier that vehicle is waiting for
+    private bool isBehindOtherVehicle = false;
     [HideInInspector]
-    public BoatController otherBoat; //Boat that is in front of us
+    public VehicleController otherVehicle; //Vehicle that is in front of us
     private bool hasPriority = false;
 
     // Start is called before the first frame update
     void Start()
     {
         //Find all possible routes from current spawn location
-        List<RoutesList> possibleRoutes = FindObjectOfType<BoatSpawner>().Routes.Where(r => r.From == spawnLocation).ToList();
-        if (possibleRoutes != null)
+        List<RoutesList> possibleRoutes = null;
+        switch (VehicleType)
+        {
+            case VehicleType.Car:
+                possibleRoutes = FindObjectOfType<VehicleSpawner>().CarRoutes.Where(r => r.From == spawnLocation).ToList();
+                break;
+
+            case VehicleType.Train:
+                possibleRoutes = FindObjectOfType<VehicleSpawner>().TrainRoutes.Where(r => r.From == spawnLocation).ToList();
+                break;
+
+            case VehicleType.Boat:
+                possibleRoutes = FindObjectOfType<VehicleSpawner>().BoatRoutes.Where(r => r.From == spawnLocation).ToList();
+                break;
+
+            case VehicleType.Bicycle:
+                break;
+
+            case VehicleType.Passenger:
+                break;
+        }
+
+        if(possibleRoutes != null)
         {
             var index = UnityEngine.Random.Range(0, possibleRoutes.Count);
             route = possibleRoutes[index];
+        }
+        else
+        {
+            Debug.LogError($"ERROR: Failed to create route for vehicle type: {VehicleType.ToString()}");
         }
 
         //Set first waypoint
@@ -54,10 +82,10 @@ public class BoatController : MonoBehaviour
         }
 
         float distanceToWaypoint = Vector3.Distance(transform.position, nextWaypoint.transform.position);
-        if (distanceToWaypoint > MinDistance)
+        if(distanceToWaypoint > MinDistanceToWaypoint)
         {
             //Check for obstacles
-            if (PathIsClear())
+            if (PathIsClear()) 
             {
                 //Move to next waypoint if not yet there
                 MoveToNextWaypoint();
@@ -66,15 +94,15 @@ public class BoatController : MonoBehaviour
         else
         {
             waypointIndex++;
-            if (waypointIndex >= route.Route.Length)
+            if(waypointIndex >= route.Route.Length)
             {
                 //Reached destination
                 nextWaypoint = null;
-                return;
+                return; 
             }
 
             //Set next waypoint
-            nextWaypoint = route.Route[waypointIndex];
+            nextWaypoint = route.Route[waypointIndex];          
         }
     }
 
@@ -84,10 +112,10 @@ public class BoatController : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(nextWaypoint.transform.position - transform.position, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
 
-        transform.position += transform.forward * DriveSpeed * Time.deltaTime;
+        transform.position += transform.forward * MovementSpeed * Time.deltaTime;
     }
 
-    //Returns true if not waiting for red light and not in front of another boat
+    //Returns true if not waiting for red light and not in front of another vehicle
     private bool PathIsClear()
     {
         isInFrontOfRedLight = TrafficLightIsRed();
@@ -97,7 +125,7 @@ public class BoatController : MonoBehaviour
             trafficLightBarrier = null;
         }
 
-        return !isInFrontOfRedLight && (!isBehindOtherBoat || hasPriority);
+        return !isInFrontOfRedLight && (!isBehindOtherVehicle || hasPriority);
     }
 
     //Fires when colliding with another collider
@@ -114,16 +142,16 @@ public class BoatController : MonoBehaviour
             }
         }
 
-        //In front of other (waiting) boat
-        if (other.transform.tag == "Boat_Model")
+        //In front of other (waiting) vehicle
+        if (CollidesWithTags.Contains(other.transform.tag))
         {
-            isBehindOtherBoat = true;
-            otherBoat = other.GetComponentInParent<BoatController>();
-            
-            //If the other boat also collides with this boat, give this one priority to move first
-            if(otherBoat.otherBoat == this)
+            isBehindOtherVehicle = true;
+            otherVehicle = other.GetComponentInParent<VehicleController>();
+
+            //If the other vehicle also collides with this vehicle, give this one priority to move first
+            if (otherVehicle.otherVehicle == this)
             {
-                if (!otherBoat.hasPriority)
+                if (!otherVehicle.hasPriority)
                 {
                     hasPriority = true;
                 }
@@ -134,17 +162,17 @@ public class BoatController : MonoBehaviour
     //Fires when no longer colliding with another collider
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.tag == "Boat_Model")
+        if (CollidesWithTags.Contains(other.transform.tag))
         {
-            isBehindOtherBoat = false;
-            otherBoat = null;
+            isBehindOtherVehicle = false;
+            otherVehicle = null;
             hasPriority = false;
         }
     }
 
     private bool TrafficLightIsRed()
     {
-        if (trafficLightBarrier == null)
+        if(trafficLightBarrier == null)
         {
             return false;
         }

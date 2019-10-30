@@ -12,36 +12,74 @@ public class Sensor : MonoBehaviour
 
     [HideInInspector]
     public bool IsTriggered = false;
-    private int carCount = 0;
+    private int vehicleCount = 0;
 
     public delegate void TriggeredSensor(LaneTypes laneType, int groupId, int subgroupId, int componentId, bool isTriggered);
     public event TriggeredSensor OnSensorTriggered;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Car")
+        switch (LaneType)
         {
-            carCount++;
+            case LaneTypes.motorised:
+                if (other.gameObject.tag == "Car")
+                    vehicleCount++;
+                    break;
 
-            if (!IsTriggered)
-            {
-                IsTriggered = true;
-                OnSensorTriggered(LaneType, GroupID, SubgroupID, ComponentID, IsTriggered);
-            }
+            case LaneTypes.cycle:
+                break;
+
+            case LaneTypes.foot:
+                break;
+
+            case LaneTypes.vessel:
+                if (other.gameObject.tag == "Boat")
+                    vehicleCount++;
+                    break;
+
+            case LaneTypes.track:
+                if (other.gameObject.tag == "Train")
+                    vehicleCount++;
+                    break;
         }
+        
+        if (!IsTriggered)
+        {
+            IsTriggered = true;
+            OnSensorTriggered(LaneType, GroupID, SubgroupID, ComponentID, IsTriggered);
+        }    
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Car")
+        switch (LaneType)
         {
-            carCount--;
+            case LaneTypes.motorised:
+                if (other.gameObject.tag == "Car")
+                    vehicleCount--;
+                    break;
 
-            if (IsTriggered && carCount == 0)
-            {
-                IsTriggered = false;
-                OnSensorTriggered(LaneType, GroupID, SubgroupID, ComponentID, IsTriggered);
-            }
+            case LaneTypes.cycle:
+                break;
+
+            case LaneTypes.foot:
+                break;
+
+            case LaneTypes.vessel:
+                if (other.gameObject.tag == "Boat")
+                    vehicleCount--;
+                    break;
+
+            case LaneTypes.track:
+                if (other.gameObject.tag == "Train")
+                    vehicleCount--;
+                    break;
+        }
+
+        if (IsTriggered && vehicleCount == 0)
+        {
+            IsTriggered = false;
+            OnSensorTriggered(LaneType, GroupID, SubgroupID, ComponentID, IsTriggered);
         }
     }
 }

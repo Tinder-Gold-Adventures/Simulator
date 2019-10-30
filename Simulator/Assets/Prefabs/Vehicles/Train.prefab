@@ -90,10 +90,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7948392556756051988}
-  - component: {fileID: 9066814067213385055}
+  - component: {fileID: -4121825206276830742}
+  - component: {fileID: -4338220677880861092}
   m_Layer: 0
   m_Name: Train
-  m_TagString: Untagged
+  m_TagString: Train
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,7 +114,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9066814067213385055
+--- !u!114 &-4121825206276830742
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,10 +123,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 6346984970465794567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e3569bd98ec2f545a5f68d6a3397e84, type: 3}
+  m_Script: {fileID: 11500000, guid: 9652a0ac5d88e3a48994f00a646ddee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 50
+  VehicleType: 1
+  MovementSpeed: 50
   RotationSpeed: 2
-  MinDistance: 0.5
+  MinDistanceToWaypoint: 0.5
+  CollidesWithTags: []
   spawnLocation: 0
+  otherVehicle: {fileID: 0}
+--- !u!65 &-4338220677880861092
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6346984970465794567}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.128826, y: 4.929844, z: 40.604797}
+  m_Center: {x: 0.035764694, y: 3.7488308, z: -15.269691}

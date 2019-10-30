@@ -225,7 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3016230719365810092}
-  - component: {fileID: 7827670759755623560}
+  - component: {fileID: 609342543682527288}
   - component: {fileID: 7317576112814315445}
   - component: {fileID: -8397377897604389027}
   m_Layer: 0
@@ -250,7 +250,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7827670759755623560
+--- !u!114 &609342543682527288
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -259,13 +259,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2269976953404356031}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2919abd0284f88840b409a9bef3540a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 9652a0ac5d88e3a48994f00a646ddee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DriveSpeed: 8
-  RotationSpeed: 1.5
-  MinDistance: 0.8
+  VehicleType: 2
+  MovementSpeed: 8
+  RotationSpeed: 2
+  MinDistanceToWaypoint: 0.8
+  CollidesWithTags:
+  - Boat_Model
   spawnLocation: 0
+  otherVehicle: {fileID: 0}
 --- !u!136 &7317576112814315445
 CapsuleCollider:
   m_ObjectHideFlags: 0

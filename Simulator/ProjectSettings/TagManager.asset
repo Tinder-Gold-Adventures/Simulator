@@ -10,6 +10,7 @@ TagManager:
   - Bridge
   - Boat
   - Boat_Model
+  - Train
   layers:
   - Default
   - TransparentFX
