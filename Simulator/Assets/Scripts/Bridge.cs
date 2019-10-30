@@ -21,11 +21,11 @@ public class Bridge : MonoBehaviour
     {
         if (IsChangingStates)
         {
-            UpdateBarrierStatus();
+            UpdateBridgeStatus();
         }
     }
 
-    public void UpdateBarrierStatus()
+    public void UpdateBridgeStatus()
     {
         if (rotationProgress <= 1f)
         {

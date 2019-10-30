@@ -14,6 +14,9 @@ public class WarningLight : MonoBehaviour
     public ComponentTypes componentType = ComponentTypes.warning_light;
     public WarningLightState state = WarningLightState.Off;
 
+    //private behavior information
+    private Trafficlight_Barrier barrier;
+
     //Optional, only for testing purposes
     private float timeTillChange = 5f;
     private float currentTime = 0f;
@@ -21,6 +24,12 @@ public class WarningLight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        barrier = GetComponentInChildren<Trafficlight_Barrier>();
+        if(barrier == null)
+        {
+            Debug.LogError("ERROR: No trafficlight_barrier found in warninglight object");
+        }
+
         timeTillChange = Random.Range(4f, 18f);
     }
 
@@ -42,6 +51,18 @@ public class WarningLight : MonoBehaviour
 
             //Set new random interval
             timeTillChange = Random.Range(4f, 18f);
+        }
+
+        bool barrierActive = barrier.IsActive;
+        if (state == WarningLightState.On && !barrierActive)
+        {
+            //Light is red, activate the barrier
+            barrier.IsActive = true;
+        }
+        else if (state == WarningLightState.Off && barrierActive)
+        {
+            //Light is green, deactivate the barrier
+            barrier.IsActive = false;
         }
     }
 

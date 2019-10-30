@@ -49,22 +49,25 @@ public class TrafficController : MonoBehaviour
         UpdateBridgePosition();
     }
 
-    //Checks if all barriers are closed, if so -> close bridge. If 1 barrier opens -> open bridge back up
+    //Checks if all barriers are closed, if so -> close bridge. If all barriers open -> open bridge back up
     private void UpdateBridgePosition()
     {
         List<Barrier> vesselBarriers = barriers.FindAll(b => b.laneType == LaneTypes.vessel);
         List<Barrier> closedVesselBarriers = vesselBarriers.Where(b => b.state == BarrierState.Closed).ToList();
 
+        //Open bridge
         if (bridge.state == BarrierState.Closed)
         {
-            if (vesselBarriers.Count == closedVesselBarriers.Count)
+            if (vesselBarriers.Count == closedVesselBarriers.Count) //All vessel barriers are closed
             {
                 bridge.IsChangingStates = true;
             }
         }
-        else
+        else //Close bridge
         {
-            if (vesselBarriers.Count != closedVesselBarriers.Count)
+            List<Barrier> openVesselBarriers = vesselBarriers.Where(b => b.state == BarrierState.Open).ToList();
+
+            if (vesselBarriers.Count == openVesselBarriers.Count) //All vessel barriers are open again
             {
                 bridge.IsChangingStates = true;
             }
@@ -73,46 +76,62 @@ public class TrafficController : MonoBehaviour
 
     private void SetTrafficLightState(LaneTypes lanetype, int groupID, int subgroupId, int componentID, TrafficLightState newState)
     {
+        //Finds all traffic lights with certain properties
         //If traffic light has no subgroup it will be -1 by default, so this function works
-        Trafficlight trafficlight = trafficlights.Find(l => l.laneType == lanetype && l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
+        List<Trafficlight> trafficlightList = trafficlights.FindAll(l => l.laneType == lanetype && l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
 
-        if (trafficlight == null)
+        //No traffic light found
+        if (trafficlightList == null)
         {
             Debug.LogError($"ERROR: CarTrafficlight with groupID: {groupID} and componentID: {componentID} not found");
             return;
         }
 
-        trafficlight.state = newState;
+        foreach (var light in trafficlightList)
+        {
+            light.state = newState;
+        }
+
     }
 
     private void SetWarningLightState(LaneTypes lanetype, int groupID, int subgroupId, int componentID, WarningLightState newState)
     {
+        //Finds all warning lights with certain properties
         //If warning light has no subgroup it will be -1 by default, so this function works
-        WarningLight warninglight = warninglights.Find(l => l.laneType == lanetype && l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
+        List<WarningLight> warninglightList = warninglights.FindAll(l => l.laneType == lanetype && l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
 
-        if (warninglight == null)
+        //No warning light found
+        if (warninglights == null)
         {
             Debug.LogError($"ERROR: CarTrafficlight with groupID: {groupID} and componentID: {componentID} not found");
             return;
         }
 
-        warninglight.state = newState;
+        foreach (var light in warninglightList)
+        {
+            light.state = newState;
+        }
     }
 
     private void SetBarrierState(LaneTypes lanetype, int groupID, int subgroupId, int componentID, BarrierState newState)
     {
-        //If traffic light has no subgroup it will be -1 by default, so this function works
-        Barrier barrier = barriers.Find(b => b.laneType == lanetype && b.GroupIds.Contains(groupID) && b.SubgroupID == subgroupId && b.ComponentID == componentID);
+        //Finds all barriers with id
+        //If barrier has no subgroup it will be -1 by default, so this function works
+        List<Barrier> barrierList = barriers.FindAll(b => b.laneType == lanetype && b.GroupIds.Contains(groupID) && b.SubgroupID == subgroupId && b.ComponentID == componentID);
 
-        if (barrier == null)
+        //No barrier found
+        if (barrierList == null)
         {
             Debug.LogError($"ERROR: CarTrafficlight with groupID: {groupID} and componentID: {componentID} not found");
             return;
         }
 
-        if(newState != barrier.state)
+        foreach (var barrier in barrierList)
         {
-            barrier.IsChangingStates = true;
+            if (newState != barrier.state)
+            {
+                barrier.IsChangingStates = true;
+            }
         }
     }
 
