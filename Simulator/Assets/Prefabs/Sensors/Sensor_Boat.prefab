@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3362271705434206032}
   - component: {fileID: 5743782389074108816}
   m_Layer: 0
-  m_Name: BoatSensor
+  m_Name: Sensor_Boat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3362271705434206033}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 20
   m_Height: 65

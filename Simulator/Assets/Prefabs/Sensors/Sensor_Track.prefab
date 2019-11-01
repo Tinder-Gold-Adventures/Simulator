@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2015762546740876623}
   - component: {fileID: 8855869830518954895}
   m_Layer: 0
-  m_Name: TrackSensor_East-_West
+  m_Name: Sensor_Track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015762546740876622}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 4
   m_Height: 20

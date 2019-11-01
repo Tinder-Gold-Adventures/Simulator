@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 441496960874052396}
   - component: {fileID: 891787142798979071}
   - component: {fileID: 8449563684028957455}
+  - component: {fileID: 5759126367819336512}
   m_Layer: 0
-  m_Name: default
-  m_TagString: Untagged
+  m_Name: model
+  m_TagString: Train_Model
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,6 +82,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &5759126367819336512
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583585159620837274}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 136.75774, y: 16.18786, z: 17.048613}
+  m_Center: {x: 51.224293, y: 12.056275, z: -0.14725843}
 --- !u!1 &6346984970465794567
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +105,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7948392556756051988}
   - component: {fileID: -4121825206276830742}
-  - component: {fileID: -4338220677880861092}
+  - component: {fileID: -4112006908706209268}
+  - component: {fileID: -6341062695820868908}
   m_Layer: 0
   m_Name: Train
   m_TagString: Train
@@ -133,16 +148,33 @@ MonoBehaviour:
   CollidesWithTags: []
   spawnLocation: 0
   otherVehicle: {fileID: 0}
---- !u!65 &-4338220677880861092
-BoxCollider:
+--- !u!136 &-4112006908706209268
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6346984970465794567}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
+  m_Radius: 2
+  m_Height: 56.1
+  m_Direction: 2
+  m_Center: {x: 0, y: 3.6599998, z: -15.9}
+--- !u!54 &-6341062695820868908
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6346984970465794567}
   serializedVersion: 2
-  m_Size: {x: 5.128826, y: 4.929844, z: 40.604797}
-  m_Center: {x: 0.035764694, y: 3.7488308, z: -15.269691}
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

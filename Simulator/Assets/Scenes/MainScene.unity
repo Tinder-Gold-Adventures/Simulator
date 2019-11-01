@@ -1053,11 +1053,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 666808842}
     m_Modifications:
-    - target: {fileID: -5043370346592215132, guid: 6bdb0c76c6c25634da486fc2c1391f04,
-        type: 3}
-      propertyPath: VehicleType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7523248655938484096, guid: 6bdb0c76c6c25634da486fc2c1391f04,
         type: 3}
       propertyPath: m_Name
@@ -1117,6 +1112,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5043370346592215132, guid: 6bdb0c76c6c25634da486fc2c1391f04,
+        type: 3}
+      propertyPath: VehicleType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -15697,7 +15697,7 @@ MonoBehaviour:
   BoatPrefab: {fileID: 2269976953404356031, guid: 76334f0fc1481f44196afd6560bbe8be,
     type: 3}
   CarSpawntimeInSec: 2
-  TrainSpawntimeInSec: 25
+  TrainSpawntimeInSec: 1
   BoatSpawntimeInSec: 16
   CarSpawners:
   - Location: 0
@@ -20355,11 +20355,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 666808842}
     m_Modifications:
-    - target: {fileID: -5043370346592215132, guid: 6bdb0c76c6c25634da486fc2c1391f04,
-        type: 3}
-      propertyPath: VehicleType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7523248655938484096, guid: 6bdb0c76c6c25634da486fc2c1391f04,
         type: 3}
       propertyPath: m_Name
@@ -20419,6 +20414,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5043370346592215132, guid: 6bdb0c76c6c25634da486fc2c1391f04,
+        type: 3}
+      propertyPath: VehicleType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -39766,11 +39766,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 666808842}
     m_Modifications:
-    - target: {fileID: -5043370346592215132, guid: 6bdb0c76c6c25634da486fc2c1391f04,
-        type: 3}
-      propertyPath: VehicleType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7523248655938484096, guid: 6bdb0c76c6c25634da486fc2c1391f04,
         type: 3}
       propertyPath: m_Name
@@ -39830,6 +39825,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5043370346592215132, guid: 6bdb0c76c6c25634da486fc2c1391f04,
+        type: 3}
+      propertyPath: VehicleType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -42322,11 +42322,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 666808842}
     m_Modifications:
-    - target: {fileID: 1180792016004790795, guid: a6ac7f98ea39e264bb19ba1eff86ecc8,
-        type: 3}
-      propertyPath: VehicleType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8215978548283590792, guid: a6ac7f98ea39e264bb19ba1eff86ecc8,
         type: 3}
       propertyPath: m_Name
@@ -42386,6 +42381,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180792016004790795, guid: a6ac7f98ea39e264bb19ba1eff86ecc8,
+        type: 3}
+      propertyPath: VehicleType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ac7f98ea39e264bb19ba1eff86ecc8, type: 3}

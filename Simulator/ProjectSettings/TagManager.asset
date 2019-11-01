@@ -11,6 +11,7 @@ TagManager:
   - Boat
   - Boat_Model
   - Train
+  - Train_Model
   layers:
   - Default
   - TransparentFX
