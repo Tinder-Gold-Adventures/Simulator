@@ -131,6 +131,9 @@ public class VehicleController : MonoBehaviour
     //Fires when colliding with another collider
     private void OnTriggerEnter(Collider other)
     {
+        if (VehicleType == TrafficType.Train)
+            return;
+
         //Traffic light in-sight is Red, don't proceed
         if (other.transform.tag == "Trafficlight_Barrier")
         {
@@ -162,6 +165,9 @@ public class VehicleController : MonoBehaviour
     //Fires when no longer colliding with another collider
     private void OnTriggerExit(Collider other)
     {
+        if (VehicleType == TrafficType.Train)
+            return;
+
         if (CollidesWithTags.Contains(other.transform.tag))
         {
             isBehindOtherVehicle = false;
