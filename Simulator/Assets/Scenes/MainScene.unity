@@ -15697,8 +15697,8 @@ MonoBehaviour:
   BoatPrefab: {fileID: 2269976953404356031, guid: 76334f0fc1481f44196afd6560bbe8be,
     type: 3}
   CarSpawntimeInSec: 2
-  TrainSpawntimeInSec: 1
-  BoatSpawntimeInSec: 16
+  TrainSpawntimeInSec: 20
+  BoatSpawntimeInSec: 15
   CarSpawners:
   - Location: 0
     Object: {fileID: 1110328610}

@@ -43,7 +43,7 @@ public class Sensor : MonoBehaviour
                     break;
         }
         
-        if (!IsTriggered)
+        if (!IsTriggered && vehicleCount > 0)
         {
             IsTriggered = true;
             OnSensorTriggered(LaneType, GroupID, SubgroupID, ComponentID, IsTriggered);

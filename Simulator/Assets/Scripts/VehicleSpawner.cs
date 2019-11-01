@@ -44,7 +44,10 @@ public class VehicleSpawner : MonoBehaviour
         }
         if (trainTimer >= TrainSpawntimeInSec)
         {
-            SpawnVehicle(TrafficType.Train);
+            if(GameObject.FindGameObjectsWithTag("Train").Length == 0)
+            {
+                SpawnVehicle(TrafficType.Train);
+            }
             trainTimer -= TrainSpawntimeInSec;
         }
         if (boatTimer >= BoatSpawntimeInSec)
