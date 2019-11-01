@@ -89,7 +89,10 @@ public class TrafficController : MonoBehaviour
 
         foreach (var light in trafficlightList)
         {
-            light.state = newState;
+            if(newState != light.state)
+            {
+                light.state = newState;
+            }
         }
 
     }
@@ -109,7 +112,10 @@ public class TrafficController : MonoBehaviour
 
         foreach (var light in warninglightList)
         {
-            light.state = newState;
+            if(newState != light.state)
+            {
+                light.state = newState;
+            }
         }
     }
 
