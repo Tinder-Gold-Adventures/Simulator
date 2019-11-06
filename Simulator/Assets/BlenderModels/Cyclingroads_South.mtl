@@ -1,10 +1,10 @@
 # Blender MTL File: 'IntersectionRoads.blend'
 # Material Count: 1
 
-newmtl M_Road
+newmtl M_CyclingRoad
 Ns 225.000000
 Ka 1.000000 1.000000 1.000000
-Kd 0.438544 0.438544 0.438544
+Kd 0.800000 0.199744 0.292787
 Ks 0.500000 0.500000 0.500000
 Ke 0.0 0.0 0.0
 Ni 1.450000
