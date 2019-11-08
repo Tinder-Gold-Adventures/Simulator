@@ -1,0 +1,12 @@
+# Blender MTL File: 'IntersectionRoads.blend'
+# Material Count: 1
+
+newmtl M_BridgeSupport
+Ns 19.777898
+Ka 1.000000 1.000000 1.000000
+Kd 0.638271 0.638271 0.638271
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2

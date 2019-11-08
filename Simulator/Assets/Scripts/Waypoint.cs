@@ -28,7 +28,7 @@ public class Waypoint : MonoBehaviour
                 Gizmos.color = Color.cyan;
                 break;
 
-            case TrafficType.Passenger:
+            case TrafficType.Pedestrian:
                 Gizmos.color = Color.white;
                 break;
         }

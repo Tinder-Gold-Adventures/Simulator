@@ -1,0 +1,27 @@
+# Written by MakeHuman 1.2.0 Alpha3
+version v1.2.0
+uuid 5f123f11-bd4a-47dc-82fa-3c358df6eb73
+name Basic_Male
+camera 9.0 43.0 -0.832132187269 0.842039699274 -0.353517631196 1.6500000000000004
+modifier breast/BreastSize 0.500000
+modifier breast/BreastFirmness 0.500000
+modifier macrodetails/Gender 1.000000
+modifier macrodetails/Age 0.687000
+modifier macrodetails/African 0.304077
+modifier macrodetails/Asian 0.185923
+modifier macrodetails/Caucasian 0.510000
+modifier macrodetails-universal/Muscle 0.272000
+modifier macrodetails-universal/Weight 0.456000
+modifier macrodetails-height/Height 0.537000
+modifier macrodetails-proportions/BodyProportions 0.190000
+skeleton game_engine.mhskel
+eyebrows eyebrow012 1c16325c-7831-4166-831a-05c5b609c219
+eyes Low-Poly 1cc97a30-85a1-42e6-a9f7-b3e753732baa
+clothes male_worksuit01 6afd98fa-381b-456f-aa46-3dd15b27b2f0
+clothes shoes01 6e0c552e-e207-44df-8f70-c9bfdeddd8c6
+clothes fedora 566dbd52-71d1-4d76-a799-0474a5a384db
+clothesHideFaces True
+skinMaterial skins/default.mhmat
+material Low-Poly 1cc97a30-85a1-42e6-a9f7-b3e753732baa eyes/materials/brown.mhmat
+material eyebrow012 1c16325c-7831-4166-831a-05c5b609c219 eyebrow012.mhmat
+subdivide False

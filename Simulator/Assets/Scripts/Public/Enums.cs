@@ -14,7 +14,7 @@ public enum TrafficType
     Train,
     Boat,
     Bicycle,
-    Passenger
+    Pedestrian
 }
 
 //All types of traffic lanes

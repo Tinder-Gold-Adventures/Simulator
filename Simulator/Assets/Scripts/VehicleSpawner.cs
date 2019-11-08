@@ -9,30 +9,37 @@ public class VehicleSpawner : MonoBehaviour
     public GameObject CarPrefab; //The car prefab that will be instantiated
     public GameObject TrainPrefab; //The train prefab that will be instantiated
     public GameObject BoatPrefab; //The boat prefab that will be instantiated
+    public GameObject PedestrianPrefab; //The pedestrian prefab that will be instantiated
 
     [Header("SpawnTimes")]
     public float CarSpawntimeInSec = 1f; //Time is takes for a car to spawn
     public float TrainSpawntimeInSec = 12f; //Time is takes for a train to spawn
     public float BoatSpawntimeInSec = 4f; //Time is takes for a boat to spawn
+    public float PedestrianSpawntimeInSec = 2f; //Time is takes for a pedestrian to spawn
+
 
     [Header("Spawners")]
     public Spawner[] CarSpawners; //List of spawners
     public Spawner[] TrainSpawners; //List of spawners
     public Spawner[] BoatSpawners; //List of spawners
+    public Spawner[] PedestrianSpawners; //List of spawners
 
     [Header("Routes")]
     public RoutesList[] CarRoutes; //List of possible routes
     public RoutesList[] TrainRoutes; //List of possible routes
     public RoutesList[] BoatRoutes; //List of possible routes
+    public RoutesList[] PedestrianRoutes; //List of possible routes
 
     [Header("Parents")]
     public GameObject CarParent;
     public GameObject TrainParent;
     public GameObject BoatParent;
+    public GameObject PedestrianParent;
 
     private float carTimer = 0f;
     private float trainTimer = 0f;
     private float boatTimer = 0f;
+    private float pedestrianTimer = 0f;
 
     // Update is called once per frame
     void Update()
@@ -55,18 +62,24 @@ public class VehicleSpawner : MonoBehaviour
             SpawnVehicle(TrafficType.Boat);
             boatTimer -= BoatSpawntimeInSec;
         }
+        if (pedestrianTimer >= PedestrianSpawntimeInSec)
+        {
+            SpawnVehicle(TrafficType.Pedestrian);
+            pedestrianTimer -= PedestrianSpawntimeInSec;
+        }
 
         //Timer tick
         carTimer += Time.deltaTime;
         trainTimer += Time.deltaTime;
         boatTimer += Time.deltaTime;
+        pedestrianTimer += Time.deltaTime;
     }
 
     void SpawnVehicle(TrafficType type)
     {
         int randomIndex = -1;
         Spawner randomSpawner = null;
-        VehicleController spawnedVehicle = null;
+        WaypointMovementController spawnedVehicle = null;
 
         switch (type)
         {
@@ -74,7 +87,7 @@ public class VehicleSpawner : MonoBehaviour
                 //Spawn car at random Spawner position 
                 randomIndex = UnityEngine.Random.Range(0, CarSpawners.Length);
                 randomSpawner = CarSpawners[randomIndex];
-                spawnedVehicle = Instantiate(CarPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<VehicleController>();
+                spawnedVehicle = Instantiate(CarPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<WaypointMovementController>();
                 spawnedVehicle.transform.parent = CarParent.transform;
                 spawnedVehicle.spawnLocation = randomSpawner.Location;
                 break;
@@ -83,7 +96,7 @@ public class VehicleSpawner : MonoBehaviour
                 //Spawn train at random Spawner position 
                 randomIndex = UnityEngine.Random.Range(0, TrainSpawners.Length);
                 randomSpawner = TrainSpawners[randomIndex];
-                spawnedVehicle = Instantiate(TrainPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<VehicleController>();
+                spawnedVehicle = Instantiate(TrainPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<WaypointMovementController>();
                 spawnedVehicle.transform.parent = TrainParent.transform;
                 spawnedVehicle.spawnLocation = randomSpawner.Location;
                 break;
@@ -92,7 +105,7 @@ public class VehicleSpawner : MonoBehaviour
                 //Spawn boat at random Spawner position 
                 randomIndex = UnityEngine.Random.Range(0, BoatSpawners.Length);
                 randomSpawner = BoatSpawners[randomIndex];
-                spawnedVehicle = Instantiate(BoatPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<VehicleController>();
+                spawnedVehicle = Instantiate(BoatPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<WaypointMovementController>();
                 spawnedVehicle.transform.parent = BoatParent.transform;
                 spawnedVehicle.spawnLocation = randomSpawner.Location;
                 break;
@@ -100,7 +113,13 @@ public class VehicleSpawner : MonoBehaviour
             case TrafficType.Bicycle:
                 break;
 
-            case TrafficType.Passenger:
+            case TrafficType.Pedestrian:
+                //Spawn pedestrian at random Spawner position 
+                randomIndex = UnityEngine.Random.Range(0, PedestrianSpawners.Length);
+                randomSpawner = PedestrianSpawners[randomIndex];
+                spawnedVehicle = Instantiate(PedestrianPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<WaypointMovementController>();
+                spawnedVehicle.transform.parent = PedestrianParent.transform;
+                spawnedVehicle.spawnLocation = randomSpawner.Location;
                 break;
         }
     }
