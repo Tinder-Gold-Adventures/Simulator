@@ -36,15 +36,15 @@ public class WaypointMovementController : MonoBehaviour
         switch (VehicleType)
         {
             case TrafficType.Car:
-                possibleRoutes = FindObjectOfType<VehicleSpawner>().CarRoutes.Where(r => r.From == spawnLocation).ToList();
+                possibleRoutes = FindObjectOfType<TrafficSpawner>().CarRoutes.Where(r => r.From == spawnLocation).ToList();
                 break;
 
             case TrafficType.Train:
-                possibleRoutes = FindObjectOfType<VehicleSpawner>().TrainRoutes.Where(r => r.From == spawnLocation).ToList();
+                possibleRoutes = FindObjectOfType<TrafficSpawner>().TrainRoutes.Where(r => r.From == spawnLocation).ToList();
                 break;
 
             case TrafficType.Boat:
-                possibleRoutes = FindObjectOfType<VehicleSpawner>().BoatRoutes.Where(r => r.From == spawnLocation).ToList();
+                possibleRoutes = FindObjectOfType<TrafficSpawner>().BoatRoutes.Where(r => r.From == spawnLocation).ToList();
                 break;
 
             case TrafficType.Bicycle:
@@ -52,7 +52,7 @@ public class WaypointMovementController : MonoBehaviour
                 break;
 
             case TrafficType.Pedestrian:
-                possibleRoutes = FindObjectOfType<VehicleSpawner>().PedestrianRoutes.Where(r => r.From == spawnLocation).ToList();
+                possibleRoutes = FindObjectOfType<TrafficSpawner>().PedestrianRoutes.Where(r => r.From == spawnLocation).ToList();
                 hasAnimations = true;
                 break;
         }
@@ -65,6 +65,7 @@ public class WaypointMovementController : MonoBehaviour
         else
         {
             Debug.LogError($"ERROR: Failed to create route for vehicle type: {VehicleType.ToString()}");
+            Destroy(this);
         }
 
         //Set first waypoint

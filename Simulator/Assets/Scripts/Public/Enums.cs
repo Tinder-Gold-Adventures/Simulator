@@ -4,7 +4,11 @@ public enum Location
     North,
     East,
     South,
-    West
+    West,
+    E_North,
+    W_North,
+    E_South,
+    W_South
 }
 
 //All types of traffic

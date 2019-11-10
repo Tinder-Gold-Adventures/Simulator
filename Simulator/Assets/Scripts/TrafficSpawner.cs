@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VehicleSpawner : MonoBehaviour
+public class TrafficSpawner : MonoBehaviour
 {
     [Header("Prefabs")]
     public GameObject CarPrefab; //The car prefab that will be instantiated
@@ -120,6 +120,7 @@ public class VehicleSpawner : MonoBehaviour
                 spawnedVehicle = Instantiate(PedestrianPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<WaypointMovementController>();
                 spawnedVehicle.transform.parent = PedestrianParent.transform;
                 spawnedVehicle.spawnLocation = randomSpawner.Location;
+                Debug.Log($"Spawning {randomSpawner.Location}");
                 break;
         }
     }

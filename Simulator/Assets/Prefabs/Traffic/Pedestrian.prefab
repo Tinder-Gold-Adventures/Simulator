@@ -4948,7 +4948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VehicleType: 4
   MovementSpeed: 3
-  RotationSpeed: 20
+  RotationSpeed: 6
   MinDistanceToWaypoint: 0.3
   CollidesWithTags:
   - Train
