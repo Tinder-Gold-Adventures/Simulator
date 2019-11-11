@@ -14,6 +14,8 @@ TagManager:
   - Train_Model
   - Pedestrian
   - Pedestrian_Model
+  - Cyclist
+  - Cyclist_Model
   layers:
   - Default
   - TransparentFX

@@ -27,9 +27,13 @@ public class Sensor : MonoBehaviour
                     break;
 
             case LaneTypes.cycle:
+                if (other.gameObject.tag == "Cyclist")
+                    vehicleCount++;
                 break;
 
             case LaneTypes.foot:
+                if (other.gameObject.tag == "Pedestrian")
+                    vehicleCount++;
                 break;
 
             case LaneTypes.vessel:
@@ -60,9 +64,13 @@ public class Sensor : MonoBehaviour
                     break;
 
             case LaneTypes.cycle:
+                if (other.gameObject.tag == "Cyclist")
+                    vehicleCount--;
                 break;
 
             case LaneTypes.foot:
+                if (other.gameObject.tag == "Pedestrian")
+                    vehicleCount--;
                 break;
 
             case LaneTypes.vessel:

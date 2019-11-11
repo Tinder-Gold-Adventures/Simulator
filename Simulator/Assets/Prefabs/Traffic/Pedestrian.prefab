@@ -4908,7 +4908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 603263388209399918}
   - component: {fileID: 8093640698269134543}
-  - component: {fileID: 7282701556548804220}
+  - component: {fileID: 323358270670880077}
   - component: {fileID: 1183606168718280926}
   - component: {fileID: 7409893750503957780}
   m_Layer: 0
@@ -4953,10 +4953,11 @@ MonoBehaviour:
   CollidesWithTags:
   - Train
   - Car_Model
+  - Cyclist_Model
   spawnLocation: 0
   otherVehicle: {fileID: 0}
---- !u!136 &7282701556548804220
-CapsuleCollider:
+--- !u!65 &323358270670880077
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4965,10 +4966,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.81
-  m_Height: 6.04
-  m_Direction: 2
-  m_Center: {x: 0, y: 14.63, z: 2.44}
+  serializedVersion: 2
+  m_Size: {x: 6.4114666, y: 18.641058, z: 3.8832664}
+  m_Center: {x: 0.027161464, y: 8.132495, z: 1.8563747}
 --- !u!54 &1183606168718280926
 Rigidbody:
   m_ObjectHideFlags: 0

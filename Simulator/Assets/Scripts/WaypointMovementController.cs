@@ -27,6 +27,7 @@ public class WaypointMovementController : MonoBehaviour
     public WaypointMovementController otherVehicle; //Vehicle that is in front of us
     private bool hasPriority = false;
     private bool hasAnimations = false;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -49,11 +50,13 @@ public class WaypointMovementController : MonoBehaviour
 
             case TrafficType.Bicycle:
                 hasAnimations = true;
+                animator = GetComponent<Animator>();
                 break;
 
             case TrafficType.Pedestrian:
                 possibleRoutes = FindObjectOfType<TrafficSpawner>().PedestrianRoutes.Where(r => r.From == spawnLocation).ToList();
                 hasAnimations = true;
+                animator = GetComponent<Animator>();
                 break;
         }
 
@@ -109,6 +112,11 @@ public class WaypointMovementController : MonoBehaviour
             //Set next waypoint
             nextWaypoint = route.Route[waypointIndex];          
         }
+
+        if (hasAnimations)
+        {
+            animator.SetBool("waitingForRedLight", isInFrontOfRedLight);
+        }
     }
 
     //Calculates destination and slowly moves & rotates towards that destination
@@ -136,12 +144,19 @@ public class WaypointMovementController : MonoBehaviour
     //Fires when colliding with another collider
     private void OnTriggerEnter(Collider other)
     {
+        //Trains don't collide with anything
         if (VehicleType == TrafficType.Train)
             return;
 
         //Traffic light in-sight is Red, don't proceed
         if (other.transform.tag == "Trafficlight_Barrier")
         {
+            float dotForward = Vector3.Dot(other.transform.forward, transform.forward);
+            
+            if(dotForward > -0.8f){
+                return; //Barrier facing away too far from this unit, barrier probably not meant for this unit. Ignore it
+            }
+
             Trafficlight_Barrier barrier = other.GetComponent<Trafficlight_Barrier>();
             if (barrier.IsActive)
             {
@@ -170,6 +185,7 @@ public class WaypointMovementController : MonoBehaviour
     //Fires when no longer colliding with another collider
     private void OnTriggerExit(Collider other)
     {
+        //Trains don't collide with anything
         if (VehicleType == TrafficType.Train)
             return;
 

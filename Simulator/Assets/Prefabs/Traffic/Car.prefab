@@ -436,12 +436,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9652a0ac5d88e3a48994f00a646ddee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  VehicleType: 0
   MovementSpeed: 20
   RotationSpeed: 4
   MinDistanceToWaypoint: 1
   CollidesWithTags:
   - Car_Model
   - Train
+  - Pedestrian_Model
+  - Cyclist_Model
   spawnLocation: 0
   otherVehicle: {fileID: 0}
 --- !u!136 &7362579851513358131

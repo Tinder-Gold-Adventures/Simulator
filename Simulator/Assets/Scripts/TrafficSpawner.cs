@@ -120,7 +120,6 @@ public class TrafficSpawner : MonoBehaviour
                 spawnedVehicle = Instantiate(PedestrianPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<WaypointMovementController>();
                 spawnedVehicle.transform.parent = PedestrianParent.transform;
                 spawnedVehicle.spawnLocation = randomSpawner.Location;
-                Debug.Log($"Spawning {randomSpawner.Location}");
                 break;
         }
     }
