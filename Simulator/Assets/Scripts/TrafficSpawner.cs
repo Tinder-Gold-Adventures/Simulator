@@ -10,36 +10,41 @@ public class TrafficSpawner : MonoBehaviour
     public GameObject TrainPrefab; //The train prefab that will be instantiated
     public GameObject BoatPrefab; //The boat prefab that will be instantiated
     public GameObject PedestrianPrefab; //The pedestrian prefab that will be instantiated
+    public GameObject CyclistPrefab; //The cyclist prefab that will be instantiated
 
     [Header("SpawnTimes")]
     public float CarSpawntimeInSec = 1f; //Time is takes for a car to spawn
     public float TrainSpawntimeInSec = 12f; //Time is takes for a train to spawn
     public float BoatSpawntimeInSec = 4f; //Time is takes for a boat to spawn
-    public float PedestrianSpawntimeInSec = 2f; //Time is takes for a pedestrian to spawn
-
+    public float PedestrianSpawntimeInSec = 4f; //Time is takes for a pedestrian to spawn
+    public float CyclistSpawntimeInSec = 5f; //Time is takes for a cyclist to spawn
 
     [Header("Spawners")]
     public Spawner[] CarSpawners; //List of spawners
     public Spawner[] TrainSpawners; //List of spawners
     public Spawner[] BoatSpawners; //List of spawners
     public Spawner[] PedestrianSpawners; //List of spawners
+    public Spawner[] CyclistSpawners; //List of spawners
 
     [Header("Routes")]
     public RoutesList[] CarRoutes; //List of possible routes
     public RoutesList[] TrainRoutes; //List of possible routes
     public RoutesList[] BoatRoutes; //List of possible routes
     public RoutesList[] PedestrianRoutes; //List of possible routes
+    public RoutesList[] CyclistRoutes; //List of possible routes
 
     [Header("Parents")]
     public GameObject CarParent;
     public GameObject TrainParent;
     public GameObject BoatParent;
     public GameObject PedestrianParent;
+    public GameObject CyclistParent;
 
     private float carTimer = 0f;
     private float trainTimer = 0f;
     private float boatTimer = 0f;
     private float pedestrianTimer = 0f;
+    private float cyclistTimer = 0f;
 
     // Update is called once per frame
     void Update()
@@ -67,12 +72,18 @@ public class TrafficSpawner : MonoBehaviour
             SpawnVehicle(TrafficType.Pedestrian);
             pedestrianTimer -= PedestrianSpawntimeInSec;
         }
+        if (cyclistTimer >= CyclistSpawntimeInSec)
+        {
+            SpawnVehicle(TrafficType.Bicycle);
+            cyclistTimer -= CyclistSpawntimeInSec;
+        }
 
         //Timer tick
         carTimer += Time.deltaTime;
         trainTimer += Time.deltaTime;
         boatTimer += Time.deltaTime;
         pedestrianTimer += Time.deltaTime;
+        cyclistTimer += Time.deltaTime;
     }
 
     void SpawnVehicle(TrafficType type)
@@ -111,6 +122,12 @@ public class TrafficSpawner : MonoBehaviour
                 break;
 
             case TrafficType.Bicycle:
+                //Spawn cyclist at random Spawner position 
+                randomIndex = UnityEngine.Random.Range(0, CyclistSpawners.Length);
+                randomSpawner = CyclistSpawners[randomIndex];
+                spawnedVehicle = Instantiate(CyclistPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<WaypointMovementController>();
+                spawnedVehicle.transform.parent = CyclistParent.transform;
+                spawnedVehicle.spawnLocation = randomSpawner.Location;
                 break;
 
             case TrafficType.Pedestrian:

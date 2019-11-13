@@ -49,6 +49,7 @@ public class WaypointMovementController : MonoBehaviour
                 break;
 
             case TrafficType.Bicycle:
+                possibleRoutes = FindObjectOfType<TrafficSpawner>().CyclistRoutes.Where(r => r.From == spawnLocation).ToList();
                 hasAnimations = true;
                 animator = GetComponent<Animator>();
                 break;
