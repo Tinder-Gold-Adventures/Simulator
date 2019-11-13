@@ -8852,6 +8852,7 @@ MonoBehaviour:
   - Car_Model
   - Train
   spawnLocation: 0
+  isInFrontOfRedLight: 0
   otherVehicle: {fileID: 0}
 --- !u!65 &7672448727318492037
 BoxCollider:
@@ -8864,8 +8865,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.58811, y: 20.980242, z: 9.060424}
-  m_Center: {x: -0.37785396, y: 9.024312, z: 12.850276}
+  m_Size: {x: 5.58811, y: 26.516712, z: 9.060425}
+  m_Center: {x: -0.37785396, y: 6.256074, z: 12.850276}
 --- !u!54 &5622598627603124802
 Rigidbody:
   m_ObjectHideFlags: 0

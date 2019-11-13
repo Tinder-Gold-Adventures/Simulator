@@ -28,11 +28,13 @@ public class Sensor : MonoBehaviour
 
             case LaneTypes.cycle:
                 if (other.gameObject.tag == "Cyclist")
+                    //if (other.GetComponent<WaypointMovementController>().isInFrontOfRedLight) //Only count if target is waiting for red light (so it doesn't trigger when other cyclist drive over sensor
                     vehicleCount++;
                 break;
 
             case LaneTypes.foot:
                 if (other.gameObject.tag == "Pedestrian")
+                    //if (other.GetComponent<WaypointMovementController>().isInFrontOfRedLight) //Only count if target is waiting for red light (so it doesn't trigger when other pedestrians walk over sensor
                     vehicleCount++;
                 break;
 

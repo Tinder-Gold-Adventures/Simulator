@@ -20,7 +20,7 @@ public class WaypointMovementController : MonoBehaviour
     private GameObject nextWaypoint;
 
     //Behavior information
-    private bool isInFrontOfRedLight = false;
+    public bool isInFrontOfRedLight = false;
     private Trafficlight_Barrier trafficLightBarrier; //Traffic light barrier that vehicle is waiting for
     private bool isBehindOtherVehicle = false;
     [HideInInspector]

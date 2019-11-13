@@ -4955,6 +4955,7 @@ MonoBehaviour:
   - Car_Model
   - Cyclist_Model
   spawnLocation: 0
+  isInFrontOfRedLight: 0
   otherVehicle: {fileID: 0}
 --- !u!65 &323358270670880077
 BoxCollider:
@@ -4967,8 +4968,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.4114666, y: 18.641058, z: 3.8832664}
-  m_Center: {x: 0.027161464, y: 8.132495, z: 1.8563747}
+  m_Size: {x: 6.4114666, y: 23.521364, z: 3.8832664}
+  m_Center: {x: 0.027161464, y: 5.692339, z: 1.8563747}
 --- !u!54 &1183606168718280926
 Rigidbody:
   m_ObjectHideFlags: 0
