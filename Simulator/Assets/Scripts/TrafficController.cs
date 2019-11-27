@@ -23,9 +23,10 @@ public class TrafficController : MonoBehaviour
 
     private List<Trafficlight> trafficlights; //Contains all traffic lights in game
     private List<WarningLight> warninglights; //Contains all warning lights in game
+    private List<BoatLight> boatlights; //Contains all boat lights in game
     private List<Barrier> barriers; //Contains all barriers in game
     private List<Sensor> sensors; //Contains all sensors in game
-    private Bridge bridge; //Contains bridge object
+    private List<Bridge> bridges; //Contains all bridges in game
 
     public delegate void Publish(TopicInformation topic, string message);
     public static event Publish OnPublishToController;
@@ -35,50 +36,20 @@ public class TrafficController : MonoBehaviour
     {
         trafficlights = FindObjectsOfType<Trafficlight>().ToList();
         warninglights = FindObjectsOfType<WarningLight>().ToList();
+        boatlights = FindObjectsOfType<BoatLight>().ToList();
         barriers = FindObjectsOfType<Barrier>().ToList();
         sensors = FindObjectsOfType<Sensor>().ToList();
-        bridge = FindObjectOfType<Bridge>();
+        bridges = FindObjectsOfType<Bridge>().ToList();
         foreach (var sensor in sensors)
         {
             sensor.OnSensorTriggered += OnSensorTriggered;
         }
     }
 
-    void Update()
-    {
-        UpdateBridgePosition();
-    }
-
-    //Checks if all barriers are closed, if so -> close bridge. If all barriers open -> open bridge back up
-    private void UpdateBridgePosition()
-    {
-        List<Barrier> vesselBarriers = barriers.FindAll(b => b.laneType == LaneTypes.vessel);
-        List<Barrier> closedVesselBarriers = vesselBarriers.Where(b => b.state == BarrierState.Closed).ToList();
-
-        //Open bridge
-        if (bridge.state == BarrierState.Closed)
-        {
-            if (vesselBarriers.Count == closedVesselBarriers.Count) //All vessel barriers are closed
-            {
-                bridge.IsChangingStates = true;
-            }
-        }
-        else //Close bridge
-        {
-            List<Barrier> openVesselBarriers = vesselBarriers.Where(b => b.state == BarrierState.Open).ToList();
-
-            if (vesselBarriers.Count == openVesselBarriers.Count) //All vessel barriers are open again
-            {
-                bridge.IsChangingStates = true;
-            }
-        }
-    }
-
-    private void SetTrafficLightState(LaneTypes lanetype, int groupID, int subgroupId, int componentID, TrafficLightState newState)
+    private void SetTrafficLightState(LaneTypes lanetype, int groupID, int componentID, TrafficLightState newState)
     {
         //Finds all traffic lights with certain properties
-        //If traffic light has no subgroup it will be -1 by default, so this function works
-        List<Trafficlight> trafficlightList = trafficlights.FindAll(l => l.laneType == lanetype && l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
+        List<Trafficlight> trafficlightList = trafficlights.FindAll(l => l.laneType == lanetype && l.GroupID == groupID && l.ComponentID == componentID);
 
         //No traffic light found
         if (trafficlightList == null)
@@ -97,16 +68,15 @@ public class TrafficController : MonoBehaviour
 
     }
 
-    private void SetWarningLightState(LaneTypes lanetype, int groupID, int subgroupId, int componentID, WarningLightState newState)
+    private void SetWarningLightState(LaneTypes lanetype, int groupID, int componentID, WarningLightState newState)
     {
         //Finds all warning lights with certain properties
-        //If warning light has no subgroup it will be -1 by default, so this function works
-        List<WarningLight> warninglightList = warninglights.FindAll(l => l.laneType == lanetype && l.GroupID == groupID && l.SubgroupID == subgroupId && l.ComponentID == componentID);
+        List<WarningLight> warninglightList = warninglights.FindAll(l => l.laneType == lanetype && l.GroupID == groupID && l.ComponentID == componentID);
 
         //No warning light found
-        if (warninglights == null)
+        if (warninglightList == null)
         {
-            Debug.LogError($"ERROR: CarTrafficlight with groupID: {groupID} and componentID: {componentID} not found");
+            Debug.LogError($"ERROR: Warninglight with groupID: {groupID} and componentID: {componentID} not found");
             return;
         }
 
@@ -119,16 +89,36 @@ public class TrafficController : MonoBehaviour
         }
     }
 
-    private void SetBarrierState(LaneTypes lanetype, int groupID, int subgroupId, int componentID, BarrierState newState)
+    private void SetBoatLightState(LaneTypes lanetype, int groupID, int componentID, BoatLightState newState)
+    {
+        //Finds all warning lights with certain properties
+        List<BoatLight> boatlightList = boatlights.FindAll(l => l.laneType == lanetype && l.GroupID == groupID && l.ComponentID == componentID);
+
+        //No warning light found
+        if (boatlightList == null)
+        {
+            Debug.LogError($"ERROR: Boatlight with groupID: {groupID} and componentID: {componentID} not found");
+            return;
+        }
+
+        foreach (var light in boatlightList)
+        {
+            if (newState != light.state)
+            {
+                light.state = newState;
+            }
+        }
+    }
+
+    private void SetBarrierState(LaneTypes lanetype, int groupID, int componentID, BarrierState newState)
     {
         //Finds all barriers with id
-        //If barrier has no subgroup it will be -1 by default, so this function works
-        List<Barrier> barrierList = barriers.FindAll(b => b.laneType == lanetype && b.GroupIds.Contains(groupID) && b.SubgroupID == subgroupId && b.ComponentID == componentID);
+        List<Barrier> barrierList = barriers.FindAll(b => b.laneType == lanetype && b.GroupId == groupID && b.ComponentID == componentID);
 
         //No barrier found
         if (barrierList == null)
         {
-            Debug.LogError($"ERROR: CarTrafficlight with groupID: {groupID} and componentID: {componentID} not found");
+            Debug.LogError($"ERROR: Barrier with groupID: {groupID} and componentID: {componentID} not found");
             return;
         }
 
@@ -141,10 +131,31 @@ public class TrafficController : MonoBehaviour
         }
     }
 
-    //Event listener to sensor trigger
-    private void OnSensorTriggered(LaneTypes laneType, int groupId, int subgroupId, int componentId, bool isTriggered)
+    private void SetDeckState(LaneTypes lanetype, int groupID, int componentID, DeckState newState)
     {
-        TopicInformation info = new TopicInformation(laneType, groupId, subgroupId, ComponentTypes.sensor, componentId);
+        //Finds all decks with id
+        List<Bridge> bridgeList = bridges.FindAll(b => b.laneType == lanetype && b.GroupId == groupID && b.ComponentID == componentID);
+
+        //No barrier found
+        if (bridgeList == null)
+        {
+            Debug.LogError($"ERROR: Bridge with groupID: {groupID} and componentID: {componentID} not found");
+            return;
+        }
+
+        foreach (var bridge in bridgeList)
+        {
+            if (newState != bridge.state)
+            {
+                bridge.IsChangingStates = true;
+            }
+        }
+    }
+
+    //Event listener to sensor trigger
+    private void OnSensorTriggered(LaneTypes laneType, int groupId, int componentId, bool isTriggered)
+    {
+        TopicInformation info = new TopicInformation(laneType, groupId, ComponentTypes.sensor, componentId);
         PublishToController(info, (isTriggered ? 1 : 0).ToString());
     }
 
@@ -167,7 +178,7 @@ public class TrafficController : MonoBehaviour
                 try
                 {
                     TrafficLightState newState = (TrafficLightState)System.Enum.Parse(typeof(TrafficLightState), message);
-                    SetTrafficLightState(info.laneType, info.groupID, info.subGroupID, info.componentID, newState);
+                    SetTrafficLightState(info.laneType, info.groupID, info.componentID, newState);
                 }
                 catch
                 {
@@ -181,11 +192,25 @@ public class TrafficController : MonoBehaviour
                 try
                 {
                     WarningLightState newState = (WarningLightState)System.Enum.Parse(typeof(WarningLightState), message);
-                    SetWarningLightState(info.laneType, info.groupID, info.subGroupID, info.componentID, newState);
+                    SetWarningLightState(info.laneType, info.groupID, info.componentID, newState);
                 }
                 catch
                 {
                     Debug.LogError($"ERROR: Tried setting invalid warning light state: '{message}' for warning light with GroupID: {info.groupID} and ComponentID: {info.componentID}");
+                }
+                break;
+
+            case ComponentTypes.boat_light:
+                //Handle boat lights
+                //Try setting new boat light state
+                try
+                {
+                    BoatLightState newState = (BoatLightState)System.Enum.Parse(typeof(BoatLightState), message);
+                    SetBoatLightState(info.laneType, info.groupID, info.componentID, newState);
+                }
+                catch
+                {
+                    Debug.LogError($"ERROR: Tried setting invalid boat light state: '{message}' for boat light with GroupID: {info.groupID} and ComponentID: {info.componentID}");
                 }
                 break;
 
@@ -198,11 +223,25 @@ public class TrafficController : MonoBehaviour
                 try
                 {
                     BarrierState newState = (BarrierState)System.Enum.Parse(typeof(BarrierState), message);
-                    SetBarrierState(info.laneType, info.groupID, info.subGroupID, info.componentID, newState);
+                    SetBarrierState(info.laneType, info.groupID, info.componentID, newState);
                 }
                 catch
                 {
                     Debug.LogError($"ERROR: Tried setting invalid barrier state: '{message}' for barrier with GroupID: {info.groupID} and ComponentID: {info.componentID}");
+                }
+                break;
+
+            case ComponentTypes.deck:
+                //Handle deck(bridge)
+                //Try setting new deck(bridge) state
+                try
+                {
+                    DeckState newState = (DeckState)System.Enum.Parse(typeof(DeckState), message);
+                    SetDeckState(info.laneType, info.groupID, info.componentID, newState);
+                }
+                catch
+                {
+                    Debug.LogError($"ERROR: Tried setting invalid deck(bridge) state: '{message}' for deck with GroupID: {info.groupID} and ComponentID: {info.componentID}");
                 }
                 break;
         }
@@ -212,6 +251,6 @@ public class TrafficController : MonoBehaviour
     {
         string[] topicInfo = topic.Split('/');
        
-        return new TopicInformation(topicInfo); //The constructor knows how to handle whether a topic includes a subgroup or not
+        return new TopicInformation(topicInfo);
     }
 }

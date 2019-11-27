@@ -96,11 +96,7 @@ public class M2QTTController : MonoBehaviour
     //Published to the broker on a specified topic
     public void Publish(TopicInformation topic, string msg)
     {
-        string subGroup = topic.subGroupID >= 0
-            ? $"{topic.subGroupID}/{topic.componentType}/{topic.componentID}" //Contains subgroup
-            : $"{topic.componentType}/{topic.componentID}"; //Does not contain subgroup
-
-        string topicString = $"{TargetTeamID}/{topic.laneType}/{topic.groupID}/{subGroup}".ToLower();
+        string topicString = $"{TargetTeamID}/{topic.laneType}/{topic.groupID}/{topic.componentType}/{topic.componentID}".ToLower();
 
         client.Publish(
             topicString, Encoding.UTF8.GetBytes(msg),

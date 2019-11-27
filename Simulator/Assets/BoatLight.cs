@@ -1,19 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TrafficController;
 
-public class WarningLight : MonoBehaviour
+public class BoatLight : MonoBehaviour
 {
     //Component Information
     public LaneTypes laneType;
     public int GroupID;
     public int ComponentID;
     [HideInInspector]
-    public ComponentTypes componentType = ComponentTypes.warning_light;
-    public WarningLightState state = WarningLightState.Off;
+    public ComponentTypes componentType = ComponentTypes.traffic_light;
+    public BoatLightState state = BoatLightState.Red;
 
-    //private behavior information
+    //Private behavoir information
     private Trafficlight_Barrier barrier;
 
     //Optional, only for testing purposes
@@ -23,11 +22,8 @@ public class WarningLight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Finds the barrier which is a child of this trafficlight object
         barrier = GetComponentInChildren<Trafficlight_Barrier>();
-        if(barrier == null)
-        {
-            Debug.LogError("ERROR: No trafficlight_barrier found in warninglight object");
-        }
 
         timeTillChange = Random.Range(4f, 18f);
     }
@@ -44,8 +40,8 @@ public class WarningLight : MonoBehaviour
             {
                 currentTime -= timeTillChange;
 
-                if (state == WarningLightState.On) { state = WarningLightState.Off; }
-                else if (state == WarningLightState.Off) { state = WarningLightState.On; }
+                if (state == BoatLightState.Red) { state = BoatLightState.Green; }
+                else if (state == BoatLightState.Green) { state = BoatLightState.Red; }
             }
 
             //Set new random interval
@@ -53,12 +49,12 @@ public class WarningLight : MonoBehaviour
         }
 
         bool barrierActive = barrier.IsActive;
-        if (state == WarningLightState.On && !barrierActive)
+        if (state == BoatLightState.Red && !barrierActive)
         {
             //Light is red, activate the barrier
             barrier.IsActive = true;
         }
-        else if (state == WarningLightState.Off && barrierActive)
+        else if (state == BoatLightState.Green && barrierActive)
         {
             //Light is green, deactivate the barrier
             barrier.IsActive = false;
@@ -69,10 +65,10 @@ public class WarningLight : MonoBehaviour
     {
         switch (state)
         {
-            case WarningLightState.On:
+            case BoatLightState.Red:
                 Gizmos.color = Color.red;
                 break;
-            case WarningLightState.Off:
+            case BoatLightState.Green:
                 Gizmos.color = Color.green;
                 break;
         }

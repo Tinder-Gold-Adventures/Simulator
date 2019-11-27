@@ -24,36 +24,22 @@ public class TopicInformation
 {
     public LaneTypes laneType;
     public int groupID;
-    public int subGroupID;
     public ComponentTypes componentType;
     public int componentID;
 
-    public TopicInformation(LaneTypes lanetype, int groupid, int subgroupid, ComponentTypes componenttype, int componentid)
+    public TopicInformation(LaneTypes lanetype, int groupid, ComponentTypes componenttype, int componentid)
     {
         laneType = lanetype;
         groupID = groupid;
-        subGroupID = subgroupid;
         componentType = componenttype;
         componentID = componentid;
     }
 
     public TopicInformation(string[] topicInformation)
     {
-        if (topicInformation.Length == 5) //Without subgroup ("team_id/lane_type/group_id/component_type/component_id")
-        {
-            laneType = (LaneTypes)System.Enum.Parse(typeof(LaneTypes), topicInformation[1]);
-            groupID = int.Parse(topicInformation[2]);
-            subGroupID = -1;
-            componentType = (ComponentTypes)System.Enum.Parse(typeof(ComponentTypes), topicInformation[3]);
-            componentID = int.Parse(topicInformation[4]);
-        }
-        else if (topicInformation.Length == 6)//With subgroup ("team_id/lane_type/group_id/subgroup_id/component_type/component_id")
-        {
-            laneType = (LaneTypes)System.Enum.Parse(typeof(LaneTypes), topicInformation[1]);
-            groupID = int.Parse(topicInformation[2]);
-            subGroupID = int.Parse(topicInformation[3]);
-            componentType = (ComponentTypes)System.Enum.Parse(typeof(ComponentTypes), topicInformation[4]);
-            componentID = int.Parse(topicInformation[5]);
-        }
+        laneType = (LaneTypes)System.Enum.Parse(typeof(LaneTypes), topicInformation[1]);
+        groupID = int.Parse(topicInformation[2]);
+        componentType = (ComponentTypes)System.Enum.Parse(typeof(ComponentTypes), topicInformation[3]);
+        componentID = int.Parse(topicInformation[4]);
     }
 }

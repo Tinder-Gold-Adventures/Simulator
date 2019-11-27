@@ -7,14 +7,13 @@ public class Sensor : MonoBehaviour
 {
     public LaneTypes LaneType;
     public int GroupID;
-    public int SubgroupID = -1;
     public int ComponentID;
 
     [HideInInspector]
     public bool IsTriggered = false;
     private int vehicleCount = 0;
 
-    public delegate void TriggeredSensor(LaneTypes laneType, int groupId, int subgroupId, int componentId, bool isTriggered);
+    public delegate void TriggeredSensor(LaneTypes laneType, int groupId, int componentId, bool isTriggered);
     public event TriggeredSensor OnSensorTriggered;
 
     private void OnTriggerEnter(Collider other)
@@ -39,7 +38,15 @@ public class Sensor : MonoBehaviour
                 break;
 
             case LaneTypes.vessel:
-                if (other.gameObject.tag == "Boat")
+                if(GroupID == 0 && ComponentID == 3) //Special sensor on top of bridge which should look for everything but boats
+                {
+                    if("Cyclist Pedestrian Car".Contains(other.gameObject.tag))
+                    {
+                        vehicleCount++;
+                    }
+                    break;
+                }
+                else if (other.gameObject.tag == "Boat")
                     vehicleCount++;
                     break;
 
@@ -52,7 +59,7 @@ public class Sensor : MonoBehaviour
         if (!IsTriggered && vehicleCount > 0)
         {
             IsTriggered = true;
-            OnSensorTriggered(LaneType, GroupID, SubgroupID, ComponentID, IsTriggered);
+            OnSensorTriggered(LaneType, GroupID, ComponentID, IsTriggered);
         }    
     }
 
@@ -76,7 +83,15 @@ public class Sensor : MonoBehaviour
                 break;
 
             case LaneTypes.vessel:
-                if (other.gameObject.tag == "Boat")
+                if (GroupID == 0 && ComponentID == 3) //Special sensor on top of bridge which should look for everything but boats
+                {
+                    if ("Cyclist Pedestrian Car".Contains(other.gameObject.tag))
+                    {
+                        vehicleCount--;
+                    }
+                    break;
+                }
+                else if (other.gameObject.tag == "Boat")
                     vehicleCount--;
                     break;
 
@@ -89,7 +104,7 @@ public class Sensor : MonoBehaviour
         if (IsTriggered && vehicleCount == 0)
         {
             IsTriggered = false;
-            OnSensorTriggered(LaneType, GroupID, SubgroupID, ComponentID, IsTriggered);
+            OnSensorTriggered(LaneType, GroupID, ComponentID, IsTriggered);
         }
     }
 }

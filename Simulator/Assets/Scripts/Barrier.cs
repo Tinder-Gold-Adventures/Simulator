@@ -7,9 +7,7 @@ public class Barrier : MonoBehaviour
 {
     //Component Information
     public LaneTypes laneType;
-    [InspectorName("Group Id's")]
-    public int[] GroupIds;
-    public int SubgroupID = -1;
+    public int GroupId;
     public int ComponentID;
     [HideInInspector]
     public ComponentTypes componentType = ComponentTypes.barrier;

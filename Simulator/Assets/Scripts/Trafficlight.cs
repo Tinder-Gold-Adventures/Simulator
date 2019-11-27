@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TrafficController;
 
 public class Trafficlight : MonoBehaviour
 {
     //Component Information
     public LaneTypes laneType;
     public int GroupID;
-    public int SubgroupID = -1;
     public int ComponentID;
     [HideInInspector]
     public ComponentTypes componentType = ComponentTypes.traffic_light;

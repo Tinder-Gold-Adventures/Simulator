@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class Bridge : MonoBehaviour
 {
+    //Component Information
+    public LaneTypes laneType;
+    public int GroupId;
+    public int ComponentID;
+    [HideInInspector]
+    public ComponentTypes componentType = ComponentTypes.barrier;
+    public DeckState state = DeckState.Closed;
+
     private const float closedRotationX = 0f;
     private const float openRotationX = 90f;
 
     //Private behavoir information
     private float rotationProgress = 0f;
     public bool IsChangingStates = false;
-    [HideInInspector]
-    public BarrierState state = BarrierState.Closed;
 
     //public settable fields
     public float RotationSpeed = 1f;
@@ -34,13 +40,13 @@ public class Bridge : MonoBehaviour
 
         Quaternion objRotation = transform.rotation;
 
-        Quaternion targetRotation = Quaternion.Euler(0f + (state == BarrierState.Open ? closedRotationX : openRotationX), objRotation.eulerAngles.y, objRotation.eulerAngles.z);
+        Quaternion targetRotation = Quaternion.Euler(0f + (state == DeckState.Open ? closedRotationX : openRotationX), objRotation.eulerAngles.y, objRotation.eulerAngles.z);
         transform.rotation = Quaternion.Lerp(objRotation, targetRotation, rotationProgress);
 
         if (rotationProgress >= 0.98f)
         {
             IsChangingStates = false;
-            state = state == BarrierState.Open ? BarrierState.Closed : BarrierState.Open;
+            state = state == DeckState.Open ? DeckState.Closed : DeckState.Open;
             rotationProgress = 0f;
         }
     }
