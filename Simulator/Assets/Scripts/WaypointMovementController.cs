@@ -111,7 +111,7 @@ public class WaypointMovementController : MonoBehaviour
             }
 
             //Set next waypoint
-            nextWaypoint = route.Route[waypointIndex];          
+            nextWaypoint = route.Route[waypointIndex];
         }
 
         if (hasAnimations)

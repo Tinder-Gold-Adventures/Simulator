@@ -142,11 +142,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VehicleType: 1
-  MovementSpeed: 50
+  MovementSpeed: 35
   RotationSpeed: 2
   MinDistanceToWaypoint: 0.5
   CollidesWithTags: []
   spawnLocation: 0
+  isInFrontOfRedLight: 0
   otherVehicle: {fileID: 0}
 --- !u!136 &-4112006908706209268
 CapsuleCollider:
