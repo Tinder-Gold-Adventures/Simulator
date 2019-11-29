@@ -116,7 +116,7 @@ public class WaypointMovementController : MonoBehaviour
 
         if (hasAnimations)
         {
-            animator.SetBool("waitingForRedLight", isInFrontOfRedLight);
+            animator.SetBool("waitingForRedLight", !PathIsClear());
         }
     }
 
@@ -139,6 +139,10 @@ public class WaypointMovementController : MonoBehaviour
             trafficLightBarrier = null;
         }
 
+        //Other vehicle disappeared
+        if (otherVehicle = null)
+            isBehindOtherVehicle = false;
+
         return !isInFrontOfRedLight && (!isBehindOtherVehicle || hasPriority);
     }
 
@@ -149,17 +153,19 @@ public class WaypointMovementController : MonoBehaviour
         if (VehicleType == TrafficType.Train)
             return;
 
-        //Traffic light in-sight is Red, don't proceed
+        //Calculate the dotproduct between transform and target transform. (used for finding out how the target unit is facing us)
+        float dotForward = Vector3.Dot(other.transform.forward, transform.forward);
+
+        //Traffic light in-sight 
         if (other.transform.tag == "Trafficlight_Barrier")
         {
-            float dotForward = Vector3.Dot(other.transform.forward, transform.forward);
-            
-            if(dotForward > -0.8f){
-                return; //Barrier facing away too far from this unit, barrier probably not meant for this unit. Ignore it
+            //Barrier is facing this unit at an angle. The barrier is probably not meant for this unit, ignore it..
+            if (dotForward > -0.8f && dotForward < 0.8f){
+                return; 
             }
 
             Trafficlight_Barrier barrier = other.GetComponent<Trafficlight_Barrier>();
-            if (barrier.IsActive)
+            if (barrier.IsActive) //(trafficlight_barrier is only active when trafficlight is red)
             {
                 isInFrontOfRedLight = true;
                 trafficLightBarrier = barrier;
@@ -169,9 +175,31 @@ public class WaypointMovementController : MonoBehaviour
         //In front of other (waiting) vehicle
         if (CollidesWithTags.Contains(other.transform.tag))
         {
+            /*
+            * NOT SURE IF THIS IS USEFULL            
+            */
+            //Check if other unit already has this unit as collider
+            if (otherVehicle.otherVehicle == this)
+            {
+                if (!otherVehicle.hasPriority)
+                {
+                    hasPriority = true;
+                }
+            }
+            /**/
+
+
+            //Other unit is facing this unit almost head on. Move through target unit. 
+            //(Implementing rerouting for cyclists/pedestrians when facing target unit is too complicated)
+            if (VehicleType == TrafficType.Bicycle || VehicleType == TrafficType.Pedestrian)
+            {
+                if (dotForward < -0.6f)
+                    return;
+            }
+
             isBehindOtherVehicle = true;
             otherVehicle = other.GetComponentInParent<WaypointMovementController>();
-
+            
             //If the other vehicle also collides with this vehicle, give this one priority to move first
             if (otherVehicle.otherVehicle == this)
             {

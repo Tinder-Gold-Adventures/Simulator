@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1250985373753785224}
   - component: {fileID: 9053507067719078334}
   m_Layer: 0
-  m_Name: TrainTrafficLight
+  m_Name: Warninglight+Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laneType: 4
   GroupID: 0
-  SubgroupID: -1
   ComponentID: 0
   componentType: 1
   state: 0
@@ -272,14 +271,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250f380fe41393d4a84a50431ba78494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laneType: 0
-  GroupIds: 0000000001000000
-  SubgroupID: -1
+  laneType: 4
+  GroupId: 0
   ComponentID: 0
   componentType: 3
   state: 0
-  RotationSpeed: 1
-  IsChangingStates: 0
+  RotationSpeed: 30
 --- !u!114 &8127112963334057555
 MonoBehaviour:
   m_ObjectHideFlags: 0

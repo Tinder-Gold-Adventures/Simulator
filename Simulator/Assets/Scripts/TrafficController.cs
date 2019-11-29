@@ -126,7 +126,7 @@ public class TrafficController : MonoBehaviour
         {
             if (newState != barrier.state)
             {
-                barrier.IsChangingStates = true;
+                barrier.state = newState;
             }
         }
     }
@@ -147,7 +147,7 @@ public class TrafficController : MonoBehaviour
         {
             if (newState != bridge.state)
             {
-                bridge.IsChangingStates = true;
+                bridge.state = newState;
             }
         }
     }

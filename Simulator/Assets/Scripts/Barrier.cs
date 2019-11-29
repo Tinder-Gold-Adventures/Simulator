@@ -14,14 +14,12 @@ public class Barrier : MonoBehaviour
     public BarrierState state = BarrierState.Open;
 
     //Public settable fields
-    public float RotationSpeed = 1f;
+    public float RotationSpeed = 30f;
 
     //Private behavoir information
     private const float barrierOpenRotation = 90f;
     private const float barrierClosedRotation = 0f;
-    private float rotationProgress = 0f;
     [HideInInspector]
-    public bool IsChangingStates = false;
     private Trafficlight_Barrier barrier;
 
     void Start()
@@ -32,31 +30,19 @@ public class Barrier : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsChangingStates)
-        {
-            UpdateBarrierStatus();
-        }
+        UpdateBarrierStatus();
 
         barrier.IsActive = state == BarrierState.Open ? false : true;
     }
 
     public void UpdateBarrierStatus()
     {        
-        if (rotationProgress <= 1f)
-        {
-            rotationProgress += RotationSpeed * Time.deltaTime;
-        }
-
         Quaternion objRotation = transform.rotation;        
-
-        Quaternion targetRotation = Quaternion.Euler(objRotation.eulerAngles.x, objRotation.eulerAngles.y, 0f + (state == BarrierState.Open ? barrierClosedRotation : barrierOpenRotation));
-        transform.rotation = Quaternion.Lerp(objRotation, targetRotation, rotationProgress);        
-
-        if(rotationProgress >= 1f)
+        Quaternion targetRotation = Quaternion.Euler(objRotation.eulerAngles.x, objRotation.eulerAngles.y, 0f + (state == BarrierState.Open ? barrierOpenRotation : barrierClosedRotation));
+        
+        if(objRotation != targetRotation)
         {
-            IsChangingStates = false;
-            state = state == BarrierState.Open ? BarrierState.Closed : BarrierState.Open;
-            rotationProgress = 0f;
+            transform.rotation = Quaternion.RotateTowards(objRotation, targetRotation, RotationSpeed * Time.deltaTime);
         }
     }
 }

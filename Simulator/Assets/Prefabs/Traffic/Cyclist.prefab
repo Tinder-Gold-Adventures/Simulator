@@ -8851,6 +8851,7 @@ MonoBehaviour:
   - Pedestrian_Model
   - Car_Model
   - Train
+  - Cyclist_Model
   spawnLocation: 0
   isInFrontOfRedLight: 0
   otherVehicle: {fileID: 0}

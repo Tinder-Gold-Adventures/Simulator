@@ -21368,7 +21368,7 @@ MonoBehaviour:
     type: 3}
   CyclistPrefab: {fileID: 6709601978089505215, guid: e57ed326ce585f7499a4972600d8e11b,
     type: 3}
-  CarSpawntimeInSec: 10
+  CarSpawntimeInSec: 5
   TrainSpawntimeInSec: 65
   BoatSpawntimeInSec: 5
   PedestrianSpawntimeInSec: 4
@@ -32916,7 +32916,6 @@ MonoBehaviour:
   ComponentID: 0
   componentType: 4
   state: 0
-  IsChangingStates: 0
   RotationSpeed: 1
 --- !u!1 &1133209086 stripped
 GameObject:

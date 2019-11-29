@@ -15,39 +15,25 @@ public class Bridge : MonoBehaviour
     private const float closedRotationX = 0f;
     private const float openRotationX = 90f;
 
-    //Private behavoir information
-    private float rotationProgress = 0f;
-    public bool IsChangingStates = false;
-
     //public settable fields
-    public float RotationSpeed = 1f;
+    public float RotationSpeed = 10f;
 
     // Update is called once per frame
     void Update()
     {
-        if (IsChangingStates)
-        {
-            UpdateBridgeStatus();
-        }
+        UpdateBridgeStatus();
     }
 
     public void UpdateBridgeStatus()
     {
-        if (rotationProgress <= 1f)
-        {
-            rotationProgress += RotationSpeed * Time.deltaTime;
-        }
-
+        //Get current rotation angle and target rotation angle
         Quaternion objRotation = transform.rotation;
+        Quaternion targetRotation = Quaternion.Euler(0f + (state == DeckState.Open ? openRotationX : closedRotationX), objRotation.eulerAngles.y, objRotation.eulerAngles.z);
 
-        Quaternion targetRotation = Quaternion.Euler(0f + (state == DeckState.Open ? closedRotationX : openRotationX), objRotation.eulerAngles.y, objRotation.eulerAngles.z);
-        transform.rotation = Quaternion.Lerp(objRotation, targetRotation, rotationProgress);
-
-        if (rotationProgress >= 0.98f)
+        if (objRotation != targetRotation)
         {
-            IsChangingStates = false;
-            state = state == DeckState.Open ? DeckState.Closed : DeckState.Open;
-            rotationProgress = 0f;
+            //If it's not at it's target rotation: move to target rotation
+            transform.rotation = Quaternion.RotateTowards(objRotation, targetRotation, RotationSpeed * Time.deltaTime);
         }
     }
 }
