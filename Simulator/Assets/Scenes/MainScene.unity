@@ -11483,7 +11483,7 @@ PrefabInstance:
     - target: {fileID: 7541669221380560642, guid: 6bdb0c76c6c25634da486fc2c1391f04,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: -4.8
       objectReference: {fileID: 0}
     - target: {fileID: 7541669221380560642, guid: 6bdb0c76c6c25634da486fc2c1391f04,
         type: 3}
@@ -11493,7 +11493,7 @@ PrefabInstance:
     - target: {fileID: 7541669221380560642, guid: 6bdb0c76c6c25634da486fc2c1391f04,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 99.8
+      value: 92.6
       objectReference: {fileID: 0}
     - target: {fileID: 7541669221380560642, guid: 6bdb0c76c6c25634da486fc2c1391f04,
         type: 3}
@@ -21322,7 +21322,7 @@ MonoBehaviour:
   BrokerHostname: arankieskamp.com
   BrokerPort: 1883
   TargetTeamID: 24
-  ListenToController: 0
+  ListenToController: 1
   subTopics:
   - motorised/+/traffic_light/#
   - cycle/+/traffic_light/#
@@ -21368,9 +21368,9 @@ MonoBehaviour:
     type: 3}
   CyclistPrefab: {fileID: 6709601978089505215, guid: e57ed326ce585f7499a4972600d8e11b,
     type: 3}
-  CarSpawntimeInSec: 1
+  CarSpawntimeInSec: 10
   TrainSpawntimeInSec: 65
-  BoatSpawntimeInSec: 20
+  BoatSpawntimeInSec: 5
   PedestrianSpawntimeInSec: 4
   CyclistSpawntimeInSec: 7
   CarSpawners:
@@ -35175,7 +35175,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1237192094}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.6, y: 0, z: -195.6}
+  m_LocalPosition: {x: 21.6, y: 0, z: -201.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 718657094}
@@ -51530,7 +51530,7 @@ PrefabInstance:
     - target: {fileID: 7541669221380560642, guid: 6bdb0c76c6c25634da486fc2c1391f04,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.1
+      value: -16.5
       objectReference: {fileID: 0}
     - target: {fileID: 7541669221380560642, guid: 6bdb0c76c6c25634da486fc2c1391f04,
         type: 3}
@@ -51540,7 +51540,7 @@ PrefabInstance:
     - target: {fileID: 7541669221380560642, guid: 6bdb0c76c6c25634da486fc2c1391f04,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 29.35
+      value: 21.7
       objectReference: {fileID: 0}
     - target: {fileID: 7541669221380560642, guid: 6bdb0c76c6c25634da486fc2c1391f04,
         type: 3}

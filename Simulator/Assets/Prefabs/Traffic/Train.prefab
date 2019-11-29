@@ -144,7 +144,7 @@ MonoBehaviour:
   VehicleType: 1
   MovementSpeed: 35
   RotationSpeed: 2
-  MinDistanceToWaypoint: 0.5
+  MinDistanceToWaypoint: 2
   CollidesWithTags: []
   spawnLocation: 0
   isInFrontOfRedLight: 0

@@ -439,13 +439,14 @@ MonoBehaviour:
   VehicleType: 0
   MovementSpeed: 20
   RotationSpeed: 4
-  MinDistanceToWaypoint: 1
+  MinDistanceToWaypoint: 2
   CollidesWithTags:
   - Car_Model
   - Train
   - Pedestrian_Model
   - Cyclist_Model
   spawnLocation: 0
+  isInFrontOfRedLight: 0
   otherVehicle: {fileID: 0}
 --- !u!136 &7362579851513358131
 CapsuleCollider:
