@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    public TrafficType VehicleType;
+    public TrafficType VehicleType; //To which vehicle type does this waypoint belong
 
+    //Draws the visible indicators above component in Scene modus
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.black;

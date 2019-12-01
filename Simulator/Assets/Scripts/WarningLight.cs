@@ -29,7 +29,7 @@ public class WarningLight : MonoBehaviour
             Debug.LogError("ERROR: No trafficlight_barrier found in warninglight object");
         }
 
-        timeTillChange = Random.Range(4f, 18f);
+        timeTillChange = Random.Range(4f, 18f); //Only used when not listening to controller
     }
 
     // Update is called once per frame
@@ -65,6 +65,7 @@ public class WarningLight : MonoBehaviour
         }
     }
 
+    //Draws the visible indicators above component in Scene modus
     private void OnDrawGizmos()
     {
         switch (state)

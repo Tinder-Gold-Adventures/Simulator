@@ -10,7 +10,7 @@ public class BoatLight : MonoBehaviour
     public int ComponentID;
     [HideInInspector]
     public ComponentTypes componentType = ComponentTypes.traffic_light;
-    public BoatLightState state = BoatLightState.Red;
+    public BoatAndTrainLightState state = BoatAndTrainLightState.Red;
 
     //Private behavoir information
     private Trafficlight_Barrier barrier;
@@ -40,8 +40,8 @@ public class BoatLight : MonoBehaviour
             {
                 currentTime -= timeTillChange;
 
-                if (state == BoatLightState.Red) { state = BoatLightState.Green; }
-                else if (state == BoatLightState.Green) { state = BoatLightState.Red; }
+                if (state == BoatAndTrainLightState.Red) { state = BoatAndTrainLightState.Green; }
+                else if (state == BoatAndTrainLightState.Green) { state = BoatAndTrainLightState.Red; }
             }
 
             //Set new random interval
@@ -49,12 +49,12 @@ public class BoatLight : MonoBehaviour
         }
 
         bool barrierActive = barrier.IsActive;
-        if (state == BoatLightState.Red && !barrierActive)
+        if (state == BoatAndTrainLightState.Red && !barrierActive)
         {
             //Light is red, activate the barrier
             barrier.IsActive = true;
         }
-        else if (state == BoatLightState.Green && barrierActive)
+        else if (state == BoatAndTrainLightState.Green && barrierActive)
         {
             //Light is green, deactivate the barrier
             barrier.IsActive = false;
@@ -65,10 +65,10 @@ public class BoatLight : MonoBehaviour
     {
         switch (state)
         {
-            case BoatLightState.Red:
+            case BoatAndTrainLightState.Red:
                 Gizmos.color = Color.red;
                 break;
-            case BoatLightState.Green:
+            case BoatAndTrainLightState.Green:
                 Gizmos.color = Color.green;
                 break;
         }

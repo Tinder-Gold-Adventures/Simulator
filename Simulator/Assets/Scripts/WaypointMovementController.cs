@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class WaypointMovementController : MonoBehaviour
 {
+    //Component information
     public TrafficType VehicleType;
     public float MovementSpeed = 5f;
     public float RotationSpeed = 10f;
@@ -61,12 +62,13 @@ public class WaypointMovementController : MonoBehaviour
                 break;
         }
 
-        if(possibleRoutes != null)
+        //Select random route if there are valid routes
+        if (possibleRoutes != null)
         {
             var index = UnityEngine.Random.Range(0, possibleRoutes.Count - 1);
             route = possibleRoutes[index];
         }
-        else
+        else //No valid routes found
         {
             Debug.LogError($"ERROR: Failed to create route for vehicle type: {VehicleType.ToString()}");
             Destroy(this);
@@ -91,6 +93,7 @@ public class WaypointMovementController : MonoBehaviour
         }
 
         float distanceToWaypoint = Vector3.Distance(transform.position, nextWaypoint.transform.position);
+        //If not yet at waypoint:
         if(distanceToWaypoint > MinDistanceToWaypoint)
         {
             //Check for obstacles
@@ -102,6 +105,7 @@ public class WaypointMovementController : MonoBehaviour
         }
         else
         {
+            //Reached waypoint
             waypointIndex++;
             if(waypointIndex >= route.Route.Length)
             {
@@ -114,6 +118,7 @@ public class WaypointMovementController : MonoBehaviour
             nextWaypoint = route.Route[waypointIndex];
         }
 
+        //Update animationController variable. Used for movement animations for Cyclists & Pedestrians
         if (hasAnimations)
         {
             animator.SetBool("waitingForRedLight", !PathIsClear());
@@ -129,7 +134,7 @@ public class WaypointMovementController : MonoBehaviour
         transform.position += transform.forward * MovementSpeed * Time.deltaTime;
     }
 
-    //Returns true if not waiting for red light and not in front of another vehicle
+    //Returns true if not waiting for red light and not in front of another vehicle (or if this vehicle has movement priority over other vehicle)
     private bool PathIsClear()
     {
         isInFrontOfRedLight = TrafficLightIsRed();
@@ -149,18 +154,19 @@ public class WaypointMovementController : MonoBehaviour
     //Fires when colliding with another collider
     private void OnTriggerEnter(Collider other)
     {
-        //Trains don't collide with anything
-        if (VehicleType == TrafficType.Train)
-            return;
-
         //Calculate the dotproduct between transform and target transform. (used for finding out how the target unit is facing us)
         float dotForward = Vector3.Dot(other.transform.forward, transform.forward);
 
         //Traffic light in-sight 
         if (other.transform.tag == "Trafficlight_Barrier")
         {
+            //If train and barrier is facing the other way, ignore it...
+            if(dotForward > -0.8f && VehicleType == TrafficType.Train)
+            {
+                return;
+            }
             //Barrier is facing this unit at an angle. The barrier is probably not meant for this unit, ignore it..
-            if (dotForward > -0.8f && dotForward < 0.8f){
+            else if (dotForward > -0.8f && dotForward < 0.8f){
                 return; 
             }
 
@@ -226,6 +232,7 @@ public class WaypointMovementController : MonoBehaviour
         }
     }
 
+    //Returns true if vehicle is facing a traffic light which is Red
     private bool TrafficLightIsRed()
     {
         if(trafficLightBarrier == null)

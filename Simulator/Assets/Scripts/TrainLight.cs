@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trafficlight : MonoBehaviour
+public class TrainLight : MonoBehaviour
 {
     //Component Information
-    public LaneTypes laneType; 
-    public int GroupID; 
+    public LaneTypes laneType;
+    public int GroupID;
     public int ComponentID;
     [HideInInspector]
-    public ComponentTypes componentType = ComponentTypes.traffic_light;
-    public TrafficLightState state = TrafficLightState.Red;
+    public ComponentTypes componentType = ComponentTypes.train_light;
+    public BoatAndTrainLightState state = BoatAndTrainLightState.Red;
 
     //Private behavoir information
     private Trafficlight_Barrier barrier;
@@ -40,8 +40,8 @@ public class Trafficlight : MonoBehaviour
             {
                 currentTime -= timeTillChange;
 
-                if (state == TrafficLightState.Red) { state = TrafficLightState.Green; }
-                else if (state == TrafficLightState.Green) { state = TrafficLightState.Red; }
+                if (state == BoatAndTrainLightState.Red) { state = BoatAndTrainLightState.Green; }
+                else if (state == BoatAndTrainLightState.Green) { state = BoatAndTrainLightState.Red; }
             }
 
             //Set new random interval
@@ -49,12 +49,12 @@ public class Trafficlight : MonoBehaviour
         }
 
         bool barrierActive = barrier.IsActive;
-        if(state == TrafficLightState.Red && !barrierActive)
-        {            
+        if (state == BoatAndTrainLightState.Red && !barrierActive)
+        {
             //Light is red, activate the barrier
             barrier.IsActive = true;
         }
-        else if(state == TrafficLightState.Green && barrierActive)
+        else if (state == BoatAndTrainLightState.Green && barrierActive)
         {
             //Light is green, deactivate the barrier
             barrier.IsActive = false;
@@ -65,13 +65,10 @@ public class Trafficlight : MonoBehaviour
     {
         switch (state)
         {
-            case TrafficLightState.Red:
+            case BoatAndTrainLightState.Red:
                 Gizmos.color = Color.red;
                 break;
-            case TrafficLightState.Yellow:
-                Gizmos.color = Color.yellow;
-                break;
-            case TrafficLightState.Green:
+            case BoatAndTrainLightState.Green:
                 Gizmos.color = Color.green;
                 break;
         }

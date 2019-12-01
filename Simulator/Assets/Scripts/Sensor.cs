@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TrafficController;
 
 public class Sensor : MonoBehaviour
 {
+    //Component Information
     public LaneTypes LaneType;
     public int GroupID;
     public int ComponentID;
@@ -13,6 +13,7 @@ public class Sensor : MonoBehaviour
     public bool IsTriggered = false;
     private int vehicleCount = 0;
 
+    //Event, subscribed to by TrafficController script
     public delegate void TriggeredSensor(LaneTypes laneType, int groupId, int componentId, bool isTriggered);
     public event TriggeredSensor OnSensorTriggered;
 
@@ -27,13 +28,11 @@ public class Sensor : MonoBehaviour
 
             case LaneTypes.cycle:
                 if (other.gameObject.tag == "Cyclist")
-                    //if (other.GetComponent<WaypointMovementController>().isInFrontOfRedLight) //Only count if target is waiting for red light (so it doesn't trigger when other cyclist drive over sensor
                     vehicleCount++;
                 break;
 
             case LaneTypes.foot:
                 if (other.gameObject.tag == "Pedestrian")
-                    //if (other.GetComponent<WaypointMovementController>().isInFrontOfRedLight) //Only count if target is waiting for red light (so it doesn't trigger when other pedestrians walk over sensor
                     vehicleCount++;
                 break;
 
@@ -56,6 +55,7 @@ public class Sensor : MonoBehaviour
                     break;
         }
         
+        //Sensor is activated by a vehicle
         if (!IsTriggered && vehicleCount > 0)
         {
             IsTriggered = true;
@@ -101,6 +101,7 @@ public class Sensor : MonoBehaviour
                     break;
         }
 
+        //Sensor no longer activated
         if (IsTriggered && vehicleCount == 0)
         {
             IsTriggered = false;

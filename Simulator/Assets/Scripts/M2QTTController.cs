@@ -43,17 +43,20 @@ public class M2QTTController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //No valid teamId
         if(TargetTeamID <= 0)
         {
             Debug.LogError($"ERROR: Tried connecting to a non-valid Team ID (TeamID: {TargetTeamID})");
             Application.Quit();
         }
         
+        //Valid broker and client found -> Connect to it
         if (BrokerHostname != null && clientId != null)
         {
             Debug.Log($"Connecting to {BrokerHostname} : {BrokerPort}");
             Connect();
             client.MqttMsgPublishReceived += client_MqttMsgPublishedReceived; //Message handler
+            //Subscribe to topics
             foreach (var topic in subTopics)
             {
                 client.Subscribe(new string[] { $"{TargetTeamID}/{topic}" }, new byte[] { qoSLevel });
@@ -123,6 +126,7 @@ public class M2QTTController : MonoBehaviour
         TrafficController.Instance.HandleMessage(e.Topic, msg);
     }
 
+    //Runs when application quits
     private void OnApplicationQuit()
     {
         Disconnect();

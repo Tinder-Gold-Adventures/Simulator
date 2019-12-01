@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TrafficController;
 
 public class Barrier : MonoBehaviour
 {
@@ -23,7 +22,7 @@ public class Barrier : MonoBehaviour
     private Trafficlight_Barrier barrier;
 
     void Start()
-    {
+    {        
         barrier = gameObject.GetComponent<Trafficlight_Barrier>();
     }
 
@@ -31,15 +30,17 @@ public class Barrier : MonoBehaviour
     void Update()
     {
         UpdateBarrierStatus();
-
+        
         barrier.IsActive = state == BarrierState.Open ? false : true;
     }
 
     public void UpdateBarrierStatus()
     {        
+        //Get current and target rotation 
         Quaternion objRotation = transform.rotation;        
         Quaternion targetRotation = Quaternion.Euler(objRotation.eulerAngles.x, objRotation.eulerAngles.y, 0f + (state == BarrierState.Open ? barrierOpenRotation : barrierClosedRotation));
         
+        //If not yet at target rotation: move towards it
         if(objRotation != targetRotation)
         {
             transform.rotation = Quaternion.RotateTowards(objRotation, targetRotation, RotationSpeed * Time.deltaTime);

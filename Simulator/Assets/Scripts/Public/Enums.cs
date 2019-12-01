@@ -39,7 +39,8 @@ public enum ComponentTypes
     boat_light,
     sensor,
     barrier,
-    deck
+    deck,
+    train_light
 }
 
 //Different states a traffic light can be in
@@ -57,7 +58,8 @@ public enum WarningLightState
     On = 1
 }
 
-public enum BoatLightState
+//Different states a boat- and barrier light can be in
+public enum BoatAndTrainLightState
 {
     Red = 0,
     Green = 1
@@ -70,6 +72,7 @@ public enum BarrierState
     Closed = 1
 }
 
+//Different states a bridge(deck) can be in
 public enum DeckState
 {
     Closed = 0,
