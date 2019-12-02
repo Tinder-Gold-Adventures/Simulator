@@ -181,20 +181,6 @@ public class WaypointMovementController : MonoBehaviour
         //In front of other (waiting) vehicle
         if (CollidesWithTags.Contains(other.transform.tag))
         {
-            /*
-            * NOT SURE IF THIS IS USEFULL            
-            */
-            //Check if other unit already has this unit as collider
-            if (otherVehicle.otherVehicle == this)
-            {
-                if (!otherVehicle.hasPriority)
-                {
-                    hasPriority = true;
-                }
-            }
-            /**/
-
-
             //Other unit is facing this unit almost head on. Move through target unit. 
             //(Implementing rerouting for cyclists/pedestrians when facing target unit is too complicated)
             if (VehicleType == TrafficType.Bicycle || VehicleType == TrafficType.Pedestrian)
