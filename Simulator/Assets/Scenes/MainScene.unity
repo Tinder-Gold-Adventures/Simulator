@@ -11714,7 +11714,22 @@ PrefabInstance:
     - target: {fileID: 5526876605870939250, guid: c4b64e4b0b0febc4091fd64b740a61d2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.9
+      value: -2.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526876605870939250, guid: c4b64e4b0b0febc4091fd64b740a61d2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556370968458956940, guid: c4b64e4b0b0febc4091fd64b740a61d2,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 4.3862386
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556370968458956940, guid: c4b64e4b0b0febc4091fd64b740a61d2,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -1.5617422
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4b64e4b0b0febc4091fd64b740a61d2, type: 3}
@@ -21377,11 +21392,11 @@ MonoBehaviour:
     type: 3}
   CyclistPrefab: {fileID: 6709601978089505215, guid: e57ed326ce585f7499a4972600d8e11b,
     type: 3}
-  CarSpawntimeInSec: 5
+  CarSpawntimeInSec: 1
   TrainSpawntimeInSec: 10
   BoatSpawntimeInSec: 15
-  PedestrianSpawntimeInSec: 4
-  CyclistSpawntimeInSec: 7
+  PedestrianSpawntimeInSec: 1
+  CyclistSpawntimeInSec: 6
   CarSpawners:
   - Location: 0
     Object: {fileID: 1110328610}
@@ -29265,7 +29280,22 @@ PrefabInstance:
     - target: {fileID: 5526876605870939250, guid: c4b64e4b0b0febc4091fd64b740a61d2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.39
+      value: -2.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556370968458956940, guid: c4b64e4b0b0febc4091fd64b740a61d2,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 9.07497
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556370968458956940, guid: c4b64e4b0b0febc4091fd64b740a61d2,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 2.2946625
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556370968458956940, guid: c4b64e4b0b0febc4091fd64b740a61d2,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.0000010802665
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4b64e4b0b0febc4091fd64b740a61d2, type: 3}
@@ -32926,6 +32956,19 @@ MonoBehaviour:
   componentType: 4
   state: 0
   RotationSpeed: 10
+--- !u!65 &1131575505
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131575502}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 38.157005, y: 4.534115, z: 17.788471}
+  m_Center: {x: -9.920471, y: 1.6752529, z: -8.129513}
 --- !u!1 &1133209086 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7523248655938484096, guid: 6bdb0c76c6c25634da486fc2c1391f04,
@@ -54898,7 +54941,17 @@ PrefabInstance:
     - target: {fileID: 5526876605870939250, guid: c4b64e4b0b0febc4091fd64b740a61d2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.56
+      value: -8.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556370968458956940, guid: c4b64e4b0b0febc4091fd64b740a61d2,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 4.647654
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556370968458956940, guid: c4b64e4b0b0febc4091fd64b740a61d2,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 1.2395836
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4b64e4b0b0febc4091fd64b740a61d2, type: 3}
@@ -58185,6 +58238,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526876605870939250, guid: c4b64e4b0b0febc4091fd64b740a61d2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556370968458956940, guid: c4b64e4b0b0febc4091fd64b740a61d2,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 12.012517
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556370968458956940, guid: c4b64e4b0b0febc4091fd64b740a61d2,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.8535404
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4b64e4b0b0febc4091fd64b740a61d2, type: 3}

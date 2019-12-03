@@ -24,6 +24,8 @@ public class WaypointMovementController : MonoBehaviour
     public bool isInFrontOfRedLight = false;
     private Trafficlight_Barrier trafficLightBarrier; //Traffic light barrier that vehicle is waiting for
     private bool isBehindOtherVehicle = false;
+    private bool isInFrontOfOpenBridge = false;
+    private Bridge waitingForBridge; //Closed bridge this unit is waiting in front of
     [HideInInspector]
     public WaypointMovementController otherVehicle; //Vehicle that is in front of us
     private bool hasPriority = false;
@@ -148,7 +150,14 @@ public class WaypointMovementController : MonoBehaviour
         if (otherVehicle = null)
             isBehindOtherVehicle = false;
 
-        return !isInFrontOfRedLight && (!isBehindOtherVehicle || hasPriority);
+        if(isInFrontOfOpenBridge){
+            if (waitingForBridge.state == DeckState.Closed)
+            {
+                isInFrontOfOpenBridge = false;
+            }
+        }
+
+        return !isInFrontOfRedLight && !isInFrontOfOpenBridge && (!isBehindOtherVehicle || hasPriority);
     }
 
     //Fires when colliding with another collider
@@ -175,6 +184,17 @@ public class WaypointMovementController : MonoBehaviour
             {
                 isInFrontOfRedLight = true;
                 trafficLightBarrier = barrier;
+            }
+        }
+        
+        //Stop when bridge is closed
+        if(other.transform.tag == "Bridge" && VehicleType != TrafficType.Boat)
+        {
+            Bridge bridge = other.GetComponent<Bridge>();
+            if (bridge.state == DeckState.Open)
+            {
+                isInFrontOfOpenBridge = true;
+                waitingForBridge = bridge;
             }
         }
 
