@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3486569416632035985}
   - component: {fileID: 3702106038237750018}
   m_Layer: 0
-  m_Name: BoatLight_West
+  m_Name: BoatLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,8 +108,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3031110744066550649, guid: 0fb0daa1bc74746468f322a20a77c28f, type: 3}
-  - {fileID: -7597887983444236976, guid: 0fb0daa1bc74746468f322a20a77c28f, type: 3}
+  - {fileID: 2100000, guid: 79762306b9b68dc4fb264caa6d7ef700, type: 2}
+  - {fileID: 2100000, guid: 806b96bdeb00b2046b6efc3ba4b86d0b, type: 2}
   - {fileID: -5630013817142037606, guid: 0fb0daa1bc74746468f322a20a77c28f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -188,8 +188,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3031110744066550649, guid: 0fb0daa1bc74746468f322a20a77c28f, type: 3}
-  - {fileID: -7597887983444236976, guid: 0fb0daa1bc74746468f322a20a77c28f, type: 3}
+  - {fileID: 2100000, guid: 79762306b9b68dc4fb264caa6d7ef700, type: 2}
+  - {fileID: 2100000, guid: 806b96bdeb00b2046b6efc3ba4b86d0b, type: 2}
   - {fileID: -5630013817142037606, guid: 0fb0daa1bc74746468f322a20a77c28f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0

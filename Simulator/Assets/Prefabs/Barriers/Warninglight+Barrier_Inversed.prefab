@@ -58,8 +58,8 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 7595118301180405069, guid: 09e9d7ce5b2f6c345a2d29fbbdb6bbf2, type: 3}
-  - {fileID: -3492614824036028420, guid: 09e9d7ce5b2f6c345a2d29fbbdb6bbf2, type: 3}
-  - {fileID: -115901596894162751, guid: 09e9d7ce5b2f6c345a2d29fbbdb6bbf2, type: 3}
+  - {fileID: 2100000, guid: 55f13cf9b5987494f92093acebde4f9d, type: 2}
+  - {fileID: 2100000, guid: 79762306b9b68dc4fb264caa6d7ef700, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -80,6 +80,64 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &1618938008459041590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8622203036277023192}
+  - component: {fileID: 5409998809833989940}
+  - component: {fileID: 9197856208977273704}
+  m_Layer: 0
+  m_Name: Barrier
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8622203036277023192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618938008459041590}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 179307183048242393}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5409998809833989940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618938008459041590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8b85c4f00d242409ec22cead560e82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsActive: 1
+--- !u!65 &9197856208977273704
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618938008459041590}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.547083, y: 4.331278, z: 1}
+  m_Center: {x: 2.2735415, y: 1.6656389, z: 0}
 --- !u!1 &3757795625573467850
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,6 +167,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 7643691725210675169}
+  - {fileID: 8622203036277023192}
   - {fileID: 3043798961551718134}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -189,9 +248,9 @@ MeshRenderer:
   m_Materials:
   - {fileID: 7659360798506365906, guid: 9ddeafbdf74a4a84c99854ed933d4ae7, type: 3}
   - {fileID: 4323969437999975631, guid: 9ddeafbdf74a4a84c99854ed933d4ae7, type: 3}
-  - {fileID: 5414262839115401326, guid: 9ddeafbdf74a4a84c99854ed933d4ae7, type: 3}
-  - {fileID: -115901596894162751, guid: 9ddeafbdf74a4a84c99854ed933d4ae7, type: 3}
-  - {fileID: 7595118301180405069, guid: 9ddeafbdf74a4a84c99854ed933d4ae7, type: 3}
+  - {fileID: 2100000, guid: 79762306b9b68dc4fb264caa6d7ef700, type: 2}
+  - {fileID: 2100000, guid: 79762306b9b68dc4fb264caa6d7ef700, type: 2}
+  - {fileID: 2100000, guid: 55f13cf9b5987494f92093acebde4f9d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -225,7 +284,7 @@ GameObject:
   - component: {fileID: 1924637504946849926}
   - component: {fileID: 9060187259373166942}
   m_Layer: 0
-  m_Name: Barrier
+  m_Name: RealBarrier
   m_TagString: Trafficlight_Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,7 +303,7 @@ Transform:
   m_Children:
   - {fileID: 160631904217737196}
   m_Father: {fileID: 179307183048242393}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1481494201162502681
 BoxCollider:

@@ -31,7 +31,6 @@ MonoBehaviour:
   componentType: 3
   state: 0
   RotationSpeed: 30
-  IsChangingStates: 0
 --- !u!114 &6264757989524624784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +193,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0.91
       objectReference: {fileID: 0}
+    - target: {fileID: -2416733968201007103, guid: 385e86471ac3d5f40a12442443d2b3d8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 55f13cf9b5987494f92093acebde4f9d, type: 2}
+    - target: {fileID: -2416733968201007103, guid: 385e86471ac3d5f40a12442443d2b3d8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 79762306b9b68dc4fb264caa6d7ef700, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 385e86471ac3d5f40a12442443d2b3d8, type: 3}
 --- !u!1 &3615955435935700976 stripped

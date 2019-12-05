@@ -26,6 +26,7 @@ public class WaypointMovementController : MonoBehaviour
     private bool isBehindOtherVehicle = false;
     private bool isInFrontOfOpenBridge = false;
     private Bridge waitingForBridge; //Closed bridge this unit is waiting in front of
+    private bool hasCrossedBridgeOrTrack = false; //Keeps track of the fact that unit has crossed the bridge
     [HideInInspector]
     public WaypointMovementController otherVehicle; //Vehicle that is in front of us
     private bool hasPriority = false;
@@ -175,6 +176,11 @@ public class WaypointMovementController : MonoBehaviour
                 return;
             }
             //Barrier is facing this unit at an angle. The barrier is probably not meant for this unit, ignore it..
+            else if(hasCrossedBridgeOrTrack && dotForward > 0.8f)
+            {
+                return;
+            }
+            
             else if (dotForward > -0.8f && dotForward < 0.8f){
                 return; 
             }
@@ -191,11 +197,17 @@ public class WaypointMovementController : MonoBehaviour
         if(other.transform.tag == "Bridge" && VehicleType != TrafficType.Boat)
         {
             Bridge bridge = other.GetComponent<Bridge>();
+            hasCrossedBridgeOrTrack = true;
             if (bridge.state == DeckState.Open)
             {
                 isInFrontOfOpenBridge = true;
                 waitingForBridge = bridge;
             }
+        }
+
+        if(other.transform.tag == "Track" && VehicleType != TrafficType.Train)
+        {
+            hasCrossedBridgeOrTrack = true;
         }
 
         //In front of other (waiting) vehicle
@@ -230,12 +242,44 @@ public class WaypointMovementController : MonoBehaviour
         if (VehicleType == TrafficType.Train)
             return;
 
+        if(other.transform.tag == "Bridge")
+        {
+            StartCoroutine(DisableCrossedBridgeBool());
+        }
+
+        if(other.transform.tag == "Track")
+        {
+            StartCoroutine(DisableCrossedTrackBool());
+        }
+
         if (CollidesWithTags.Contains(other.transform.tag))
         {
             isBehindOtherVehicle = false;
             otherVehicle = null;
             hasPriority = false;
         }
+    }
+
+    private IEnumerator DisableCrossedBridgeBool()
+    {
+        if (VehicleType == TrafficType.Car)
+            yield return new WaitForSeconds(3f);
+
+        else
+            yield return new WaitForSeconds(8f);
+
+        hasCrossedBridgeOrTrack = false;
+    }
+
+    private IEnumerator DisableCrossedTrackBool()
+    {
+        if (VehicleType == TrafficType.Car)
+            yield return new WaitForSeconds(2f);
+
+        else
+            yield return new WaitForSeconds(4f);
+
+        hasCrossedBridgeOrTrack = false;
     }
 
     //Returns true if vehicle is facing a traffic light which is Red
