@@ -98,6 +98,11 @@ public class TrafficSpawner : MonoBehaviour
                 //Spawn car at random Spawner position 
                 randomIndex = UnityEngine.Random.Range(0, CarSpawners.Length);
                 randomSpawner = CarSpawners[randomIndex];
+                if (randomSpawner.Object.GetComponent<Spawn>().PositionIsOccupied)
+                {
+                    //Spawner position is already occupied by another unit, don't spawn.
+                    return;
+                }
                 spawnedVehicle = Instantiate(CarPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<WaypointMovementController>();
                 spawnedVehicle.transform.parent = CarParent.transform;
                 spawnedVehicle.spawnLocation = randomSpawner.Location;
@@ -107,6 +112,11 @@ public class TrafficSpawner : MonoBehaviour
                 //Spawn train at random Spawner position 
                 randomIndex = UnityEngine.Random.Range(0, TrainSpawners.Length);
                 randomSpawner = TrainSpawners[randomIndex];
+                if (randomSpawner.Object.GetComponent<Spawn>().PositionIsOccupied)
+                {
+                    //Spawner position is already occupied by another unit, don't spawn.
+                    return;
+                }
                 spawnedVehicle = Instantiate(TrainPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<WaypointMovementController>();
                 spawnedVehicle.transform.parent = TrainParent.transform;
                 spawnedVehicle.spawnLocation = randomSpawner.Location;
@@ -116,6 +126,11 @@ public class TrafficSpawner : MonoBehaviour
                 //Spawn boat at random Spawner position 
                 randomIndex = UnityEngine.Random.Range(0, BoatSpawners.Length);
                 randomSpawner = BoatSpawners[randomIndex];
+                if (randomSpawner.Object.GetComponent<Spawn>().PositionIsOccupied)
+                {
+                    //Spawner position is already occupied by another unit, don't spawn.
+                    return;
+                }
                 spawnedVehicle = Instantiate(BoatPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<WaypointMovementController>();
                 spawnedVehicle.transform.parent = BoatParent.transform;
                 spawnedVehicle.spawnLocation = randomSpawner.Location;
@@ -125,6 +140,11 @@ public class TrafficSpawner : MonoBehaviour
                 //Spawn cyclist at random Spawner position 
                 randomIndex = UnityEngine.Random.Range(0, CyclistSpawners.Length);
                 randomSpawner = CyclistSpawners[randomIndex];
+                if (randomSpawner.Object.GetComponent<Spawn>().PositionIsOccupied)
+                {
+                    //Spawner position is already occupied by another unit, don't spawn.
+                    return;
+                }
                 spawnedVehicle = Instantiate(CyclistPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<WaypointMovementController>();
                 spawnedVehicle.transform.parent = CyclistParent.transform;
                 spawnedVehicle.spawnLocation = randomSpawner.Location;
@@ -134,6 +154,11 @@ public class TrafficSpawner : MonoBehaviour
                 //Spawn pedestrian at random Spawner position 
                 randomIndex = UnityEngine.Random.Range(0, PedestrianSpawners.Length);
                 randomSpawner = PedestrianSpawners[randomIndex];
+                if (randomSpawner.Object.GetComponent<Spawn>().PositionIsOccupied)
+                {
+                    //Spawner position is already occupied by another unit, don't spawn.
+                    return;
+                }
                 spawnedVehicle = Instantiate(PedestrianPrefab, randomSpawner.Object.transform.position, Quaternion.identity).GetComponent<WaypointMovementController>();
                 spawnedVehicle.transform.parent = PedestrianParent.transform;
                 spawnedVehicle.spawnLocation = randomSpawner.Location;

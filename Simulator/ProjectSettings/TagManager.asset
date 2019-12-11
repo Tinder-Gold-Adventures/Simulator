@@ -17,6 +17,7 @@ TagManager:
   - Cyclist
   - Cyclist_Model
   - Track
+  - Spawner
   layers:
   - Default
   - TransparentFX

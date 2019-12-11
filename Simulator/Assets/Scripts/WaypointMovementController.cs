@@ -26,7 +26,7 @@ public class WaypointMovementController : MonoBehaviour
     private bool isBehindOtherVehicle = false;
     private bool isInFrontOfOpenBridge = false;
     private Bridge waitingForBridge; //Closed bridge this unit is waiting in front of
-    private bool hasCrossedBridgeOrTrack = false; //Keeps track of the fact that unit has crossed the bridge
+    private bool isCrossingBridgeOrTrack = false; //Keeps track of the fact that unit has crossed the bridge
     [HideInInspector]
     public WaypointMovementController otherVehicle; //Vehicle that is in front of us
     private bool hasPriority = false;
@@ -171,16 +171,24 @@ public class WaypointMovementController : MonoBehaviour
         if (other.transform.tag == "Trafficlight_Barrier")
         {
             //If train and barrier is facing the other way, ignore it...
-            if(dotForward > -0.8f && VehicleType == TrafficType.Train)
+            if(VehicleType == TrafficType.Train && dotForward > -0.8f)
             {
                 return;
             }
+
+            //Barrier is facing this unit the opposite way & unit is crossing bridge or track, ignore opposing barrier..
+            else if(isCrossingBridgeOrTrack && dotForward > 0.8f)
+            {
+                return;
+            }
+
+            //Pedestrian or Cyclist has just crossed the road and is facing a red light barrier on the opposite side. Ignore it..
+            else if((VehicleType == TrafficType.Bicycle || VehicleType == TrafficType.Pedestrian) && other.GetComponentInParent<Trafficlight>() != null && dotForward > 0.8f)
+            {
+                return;
+            }
+
             //Barrier is facing this unit at an angle. The barrier is probably not meant for this unit, ignore it..
-            else if(hasCrossedBridgeOrTrack && dotForward > 0.8f)
-            {
-                return;
-            }
-            
             else if (dotForward > -0.8f && dotForward < 0.8f){
                 return; 
             }
@@ -197,7 +205,7 @@ public class WaypointMovementController : MonoBehaviour
         if(other.transform.tag == "Bridge" && VehicleType != TrafficType.Boat)
         {
             Bridge bridge = other.GetComponent<Bridge>();
-            hasCrossedBridgeOrTrack = true;
+            isCrossingBridgeOrTrack = true;
             if (bridge.state == DeckState.Open)
             {
                 isInFrontOfOpenBridge = true;
@@ -207,7 +215,7 @@ public class WaypointMovementController : MonoBehaviour
 
         if(other.transform.tag == "Track" && VehicleType != TrafficType.Train)
         {
-            hasCrossedBridgeOrTrack = true;
+            isCrossingBridgeOrTrack = true;
         }
 
         //In front of other (waiting) vehicle
@@ -268,7 +276,7 @@ public class WaypointMovementController : MonoBehaviour
         else
             yield return new WaitForSeconds(8f);
 
-        hasCrossedBridgeOrTrack = false;
+        isCrossingBridgeOrTrack = false;
     }
 
     private IEnumerator DisableCrossedTrackBool()
@@ -279,7 +287,7 @@ public class WaypointMovementController : MonoBehaviour
         else
             yield return new WaitForSeconds(4f);
 
-        hasCrossedBridgeOrTrack = false;
+        isCrossingBridgeOrTrack = false;
     }
 
     //Returns true if vehicle is facing a traffic light which is Red

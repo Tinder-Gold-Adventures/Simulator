@@ -3,6 +3,23 @@
 public class Spawn : MonoBehaviour
 {
     public TrafficType VehicleType;
+    public bool PositionIsOccupied = false;
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.transform.tag != "Spawner")
+        {
+            PositionIsOccupied = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.tag != "Spawner")
+        {
+            PositionIsOccupied = false;
+        }
+    }
 
     private void OnDrawGizmos()
     {
