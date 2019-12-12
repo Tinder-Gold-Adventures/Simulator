@@ -76,10 +76,6 @@ public class M2QTTController : MonoBehaviour
             client.Connect(clientId);
             Debug.Log($"Connected to {BrokerHostname}:{BrokerPort} as {clientId}");
             Debug.Log($"Listening to Team {TargetTeamID}");
-
-            //Publish "established connection"
-            var testMessage = $"Simulator with clientId: {clientId} established a connection and is listening on topic(s) {TargetTeamID}/#";
-            Publish(testMessage);
         }
         catch(Exception e)
         {
