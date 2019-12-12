@@ -23610,10 +23610,10 @@ MonoBehaviour:
   CyclistPrefab: {fileID: 6709601978089505215, guid: e57ed326ce585f7499a4972600d8e11b,
     type: 3}
   CarSpawntimeInSec: 3
-  TrainSpawntimeInSec: 60
-  BoatSpawntimeInSec: 45
-  PedestrianSpawntimeInSec: 5
-  CyclistSpawntimeInSec: 5
+  TrainSpawntimeInSec: 120
+  BoatSpawntimeInSec: 50
+  PedestrianSpawntimeInSec: 6
+  CyclistSpawntimeInSec: 8
   CarSpawners:
   - Location: 0
     Object: {fileID: 1110328610}
